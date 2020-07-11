@@ -81,3 +81,76 @@ Response example:
     }
 }
 ```
+
+
+### /message
+______
+
+Broadcast a message to nearby quadrants
+
+| Method | Endpoint | URL |
+|--------|----------|-----|
+| `GET`  | `/message/{content}/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/message/hej/1/abc](coronajam19.app.fernandobevilacqua.com/api/message/hej/1/abc) |
+
+Required fields in the request:
+
+| Name      | Type   | Description        |
+|-----------|--------|--------------------|
+| content   | string | Message to be broadcasted (max 8 chars). |
+| user_id   | int    | User's id, as informed by `/join`.|
+| token     | string | User's token, as informed by `/join`. |
+
+Response example:
+
+```json
+{
+    "message": {
+        "ship_id": 1,
+        "content": "hey",
+        "row": 10,
+        "col": -4,
+        "updated_at": "2020-07-11T17:58:16.000000Z",
+        "created_at": "2020-07-11T17:58:16.000000Z",
+        "id": 5
+    }
+}
+```
+
+### /sync
+______
+
+Broadcast a message to nearby quadrants
+
+| Method | Endpoint | URL |
+|--------|----------|-----|
+| `GET`  | `/sync/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/sync/1/abc](coronajam19.app.fernandobevilacqua.com/api/sync/1/abc) |
+
+Required fields in the request:
+
+| Name      | Type   | Description        |
+|-----------|--------|--------------------|
+| user_id   | int    | User's id, as informed by `/join`.|
+| token     | string | User's token, as informed by `/join`. |
+
+Response example:
+
+```json
+{
+    "user": {
+        "id": 1,
+        "name": "foo",
+        "country": "BR",
+        "token": "LB1h0Pq5sgSPUIzsr0qvx8UOjkDfR61g",
+        "created_at": "2020-07-11T13:19:59.000000Z",
+        "updated_at": "2020-07-11T13:19:59.000000Z",
+        "ship": {
+            "id": 1,
+            "user_id": 1,
+            "row": 10,
+            "col": -4,
+            "created_at": "2020-07-11T13:19:59.000000Z",
+            "updated_at": "2020-07-11T17:55:34.000000Z"
+        }
+    }
+}
+```

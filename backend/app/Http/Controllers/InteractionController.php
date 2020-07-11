@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 
+use Validator;
 use App\Ship;
 use App\User;
+use App\Message;
 
 /**
  * Handles all the steps to allow someone to join the game
@@ -50,10 +52,21 @@ class InteractionController extends Controller
      */
     public function message($content, User $user, $token)
     {
-        dd($content);
+        $ship = $user->ship;
+
+        Validator::make(['content' => $content], [
+            'content' =>  'required|max:8',
+        ])->validate();
+
+        $message = Message::create([
+            'ship_id' => $ship->id,
+            'content' => $content,
+            'row' => $ship->row,
+            'col' => $ship->col
+        ]);
 
         return [
-            'user' => $user
+            'message' => $message
         ];
     }
 

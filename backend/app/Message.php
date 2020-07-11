@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Message extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -31,7 +31,7 @@ class Item extends Model
     protected $casts = [
         'ship_id' => 'integer',
         'row' => 'integer',
-        'col' => 'integer',
+        'col' => 'integer'
     ];
 
     public function ship()
