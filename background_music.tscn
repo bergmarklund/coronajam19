@@ -11,3 +11,4 @@ stream = ExtResource( 1 )
 autoplay = true
 
 [node name="random_stream" type="AudioStreamPlayer" parent="."]
+autoplay = true
