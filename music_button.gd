@@ -1,11 +1,9 @@
 extends Node
 signal music_button_clicked(id)
 
-
 var id = 0
 var hover_yellow = Color(1,1,0)
 var red = Color(1,0,0)
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

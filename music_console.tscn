@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://led.tscn" type="PackedScene" id=1]
 [ext_resource path="res://music_button.tscn" type="PackedScene" id=2]
 [ext_resource path="res://music_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://music_console.gd" type="Script" id=4]
+[ext_resource path="res://assets/sounds/communication/send/C_medium.wav" type="AudioStream" id=5]
 
 [node name="music_console" type="Spatial"]
 script = ExtResource( 4 )
@@ -26,3 +27,24 @@ transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 25, -1
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.2577, 19.7138, -5.41896 )
 shadow_enabled = true
 omni_range = 54.9505
+
+[node name="SendSignals" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 1.0
+
+[node name="AudioStreamPlayer1" type="AudioStreamPlayer" parent="SendSignals"]
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="SendSignals"]
+
+[node name="AudioStreamPlayer3" type="AudioStreamPlayer" parent="SendSignals"]
+
+[node name="AudioStreamPlayer4" type="AudioStreamPlayer" parent="SendSignals"]
+
+[node name="AudioStreamPlayer5" type="AudioStreamPlayer" parent="SendSignals"]
+
+[node name="AudioStreamPlayer6" type="AudioStreamPlayer" parent="SendSignals"]
+
+[node name="AudioStreamPlayer7" type="AudioStreamPlayer" parent="SendSignals"]
+
+[node name="play_button" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.3388 )
