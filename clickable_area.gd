@@ -11,9 +11,6 @@ func _ready():
 	area.connect("mouse_entered", self, "_mouse_entered_area")
 	area.connect("mouse_exited", self, "_mouse_exited_area")
 
-func _process(delta):
-	pass
-
 func _mouse_entered_area():
 	mouse_over = true
 

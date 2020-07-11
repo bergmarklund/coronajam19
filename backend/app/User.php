@@ -28,6 +28,13 @@ class User extends Authenticatable
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['ship'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array

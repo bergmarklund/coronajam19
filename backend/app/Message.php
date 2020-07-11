@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Item extends Model
+class Message extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -24,11 +24,21 @@ class Item extends Model
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['ship'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
+        'ship_id' => 'integer',
+        'row' => 'integer',
+        'col' => 'integer'
     ];
 
     public function ship()
