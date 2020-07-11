@@ -18,11 +18,12 @@ func _ready():
 	$InterpolatedCamera.translation = start.translation
 	$InterpolatedCamera.rotation = start.rotation
 	$InterpolatedCamera.enabled = true
+	reload(rng_seed)
+
+func reload(_rng_seed):
+	rng_seed = _rng_seed
 	$background.reload(rng_seed)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 func _input(event):
 	if event is InputEventMouseButton:	
 		if(event.pressed && event.button_index == BUTTON_RIGHT):

@@ -13,12 +13,18 @@ func _ready():
 	print(rng_seed)
 	goto_spaceship(0)
 
-		
+
 func clear_current_scene():
 	if $current_scene.get_child_count() > 0:
 		var children = $current_scene.get_children()
 		for child in children:
 			child.queue_free()
+			
+func reload():
+	if $current_scene.get_child_count() > 0:
+		var child = $current_scene.get_children()[0]
+		if child.has_method("reload"):
+			child.reload(rng_seed)
 		
 func goto_spaceship(camera_start):
 	clear_current_scene()
