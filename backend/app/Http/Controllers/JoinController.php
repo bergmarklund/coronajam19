@@ -37,7 +37,7 @@ class JoinController extends Controller
     public function create($name, $country)
     {
         // Variation of ship position
-        $range = 30;
+        $range = config('game.ship_start_quadrant_range', 30);
 
         $input = [
             'name' => $name,
