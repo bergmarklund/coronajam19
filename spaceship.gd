@@ -4,6 +4,7 @@ signal display_msg_console
 
 var camera_start = 0
 var can_go_to_panels = true
+var rng_seed = 0
 
 func _ready():
 	var start = $camera_origin
@@ -17,7 +18,7 @@ func _ready():
 	$InterpolatedCamera.translation = start.translation
 	$InterpolatedCamera.rotation = start.rotation
 	$InterpolatedCamera.enabled = true
-	$background.reload(5)
+	$background.reload(rng_seed)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

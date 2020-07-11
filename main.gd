@@ -4,6 +4,8 @@ var spaceship_scene = preload("res://spaceship.tscn")
 var navconsole_scene = preload("res://navigation_console.tscn")
 # Called when the node enters the scene tree for the first time.
 
+var rng_seed = 4
+
 func _ready():
 	goto_spaceship(0)
 
@@ -20,6 +22,7 @@ func goto_spaceship(camera_start):
 	spaceship.connect("display_nav_console", self, "_on_display_nav_console")
 	spaceship.connect("display_msg_console", self, "_on_display_msg_console")
 	spaceship.camera_start = camera_start
+	spaceship.rng_seed = rng_seed
 	$current_scene.add_child(spaceship)
 
 func goto_nav_console():
