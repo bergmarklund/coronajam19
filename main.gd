@@ -7,6 +7,10 @@ var msgconsole_scene = preload("res://music_console.tscn")
 var rng_seed = 1
 
 func _ready():
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	rng_seed = rng.randi()
+	print(rng_seed)
 	goto_spaceship(0)
 
 		
