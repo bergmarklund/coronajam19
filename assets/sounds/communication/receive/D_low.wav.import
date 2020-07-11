@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/D_low.wav-34ba9a54432a9b10e773017370f13d3d.sample"
+
+[deps]
+
+source_file="res://assets/sounds/communication/receive/D_low.wav"
+dest_files=[ "res://.import/D_low.wav-34ba9a54432a9b10e773017370f13d3d.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

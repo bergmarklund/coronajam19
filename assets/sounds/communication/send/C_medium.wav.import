@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/C_medium.wav-f304d376a2675960af62da1091d7ec02.sample"
+
+[deps]
+
+source_file="res://assets/sounds/communication/send/C_medium.wav"
+dest_files=[ "res://.import/C_medium.wav-f304d376a2675960af62da1091d7ec02.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

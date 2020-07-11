@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/equipment_7.wav-62cc968f23fb9444d1a7f7349fa37333.sample"
+
+[deps]
+
+source_file="res://assets/sounds/ambiance/misc/equipment_7.wav"
+dest_files=[ "res://.import/equipment_7.wav-62cc968f23fb9444d1a7f7349fa37333.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

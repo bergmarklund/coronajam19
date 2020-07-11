@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/B_medium.wav-2e69649628f5149908cfbc4eb3f4611c.sample"
+
+[deps]
+
+source_file="res://assets/sounds/communication/send/B_medium.wav"
+dest_files=[ "res://.import/B_medium.wav-2e69649628f5149908cfbc4eb3f4611c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

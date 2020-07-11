@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/D_high.wav-135386f8314f176f5d15db86494e227e.sample"
+
+[deps]
+
+source_file="res://assets/sounds/communication/receive/D_high.wav"
+dest_files=[ "res://.import/D_high.wav-135386f8314f176f5d15db86494e227e.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
