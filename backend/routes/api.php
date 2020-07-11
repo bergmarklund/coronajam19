@@ -20,6 +20,7 @@ Route::get('/join/{name}/{country}', 'JoinController@index')->name('join.create'
 
 // Interaction
 Route::get('/move/{direction}/{user}/{token}', 'InteractionController@move')->name('interaction.move');
+Route::get('/warp/{row}/{col}/{user}/{token}', 'InteractionController@warp')->name('interaction.warp');
 Route::get('/message/{content}/{user}/{token}', 'InteractionController@message')->name('interaction.message');
 Route::get('/sync/{user}/{token}', 'InteractionController@sync')->name('interaction.sync');
 
