@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/SpaceShip_test1.glb-3a646a0a0b5b681b24861fd36eb2e5d3.scn"
+path="res://.import/planet_round_red.glb-eb8716d9405f5c6894ba2cae0eef1bf9.scn"
 
 [deps]
 
-source_file="res://assets/spaceship_interior/SpaceShip_test1.glb"
-dest_files=[ "res://.import/SpaceShip_test1.glb-3a646a0a0b5b681b24861fd36eb2e5d3.scn" ]
+source_file="res://assets/planets/planet_round_red.glb"
+dest_files=[ "res://.import/planet_round_red.glb-eb8716d9405f5c6894ba2cae0eef1bf9.scn" ]
 
 [params]
 

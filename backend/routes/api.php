@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Join
+Route::post('/join', 'JoinController@index')->name('join.index');
+
+// Move
+Route::get('/{token}/{user}/move/{direction}', 'MoveController@index')->name('move.index');
+
+// Test
+Route::get('/test', 'TestController@index')->name('test.index');
+Route::get('/{token}/test', 'TestController@index')->name('test.index');
