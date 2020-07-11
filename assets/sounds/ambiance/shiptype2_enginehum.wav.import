@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/shiptype2_enginehum.wav-e48503aa3361ef9b245d5af7afe8f4e4.sample"
+
+[deps]
+
+source_file="res://assets/sounds/ambiance/shiptype2_enginehum.wav"
+dest_files=[ "res://.import/shiptype2_enginehum.wav-e48503aa3361ef9b245d5af7afe8f4e4.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
