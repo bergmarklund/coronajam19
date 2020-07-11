@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://navigation_console.gd" type="Script" id=1]
 [ext_resource path="res://led.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://navigation_console_arrow.tscn" type="PackedScene" id=4]
 [ext_resource path="res://navigation_console_panel.tscn" type="PackedScene" id=5]
 [ext_resource path="res://clickable_area.gd" type="Script" id=6]
+[ext_resource path="res://panel_lighting.tscn" type="PackedScene" id=7]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -77,13 +78,15 @@ area_path = NodePath(".")
 shape = SubResource( 5 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 25, 0 )
+transform = Transform( 1, 0, 0, 0, 0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 25, 9 )
 
 [node name="LED" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.124534, 0 )
 
 [node name="panel_noarrows" parent="." instance=ExtResource( 5 )]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
+
+[node name="panel_lighting" parent="." instance=ExtResource( 7 )]
 [connection signal="area_clicked" from="arrow_right/arrow_right" to="." method="_on_arrow_right_area_clicked"]
 [connection signal="mouse_entered" from="arrow_right/arrow_right" to="." method="_on_arrow_right_mouse_entered"]
 [connection signal="mouse_exited" from="arrow_right/arrow_right" to="." method="_on_arrow_right_mouse_exited"]
