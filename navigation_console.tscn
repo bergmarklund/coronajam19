@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://navigation_console.gd" type="Script" id=1]
 [ext_resource path="res://led.tscn" type="PackedScene" id=2]
@@ -14,6 +14,8 @@
 [sub_resource type="BoxShape" id=3]
 
 [sub_resource type="BoxShape" id=4]
+
+[sub_resource type="BoxShape" id=5]
 
 [node name="Navigation Console" type="Spatial"]
 script = ExtResource( 1 )
@@ -63,6 +65,17 @@ area_path = NodePath("../arrow_down")
 transform = Transform( 1.2, 0, 0, 0, 1, 0, 0, 0, 1.2, -1.09163, 0, 0 )
 shape = SubResource( 4 )
 
+[node name="launch_button" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4103, 0, 9.14583 )
+
+[node name="launch_button" type="Area" parent="launch_button"]
+transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0 )
+script = ExtResource( 6 )
+area_path = NodePath(".")
+
+[node name="CollisionShape" type="CollisionShape" parent="launch_button/launch_button"]
+shape = SubResource( 5 )
+
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, -1.62921e-07, 1, 0, -1, -1.62921e-07, 0, 25, 0 )
 
@@ -71,14 +84,18 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.124534, 0 )
 
 [node name="panel_noarrows" parent="." instance=ExtResource( 5 )]
 transform = Transform( -1, 0, -3.25841e-07, 0, 1, 0, 3.25841e-07, 0, -1, 0, 0, 0 )
-
-[node name="launch_button" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.4103, 0, 9.14583 )
 [connection signal="area_clicked" from="arrow_right/arrow_right" to="." method="_on_arrow_right_area_clicked"]
 [connection signal="mouse_entered" from="arrow_right/arrow_right" to="." method="_on_arrow_right_mouse_entered"]
+[connection signal="mouse_exited" from="arrow_right/arrow_right" to="." method="_on_arrow_right_mouse_exited"]
 [connection signal="area_clicked" from="arrow_left/arrow_left" to="." method="_on_arrow_left_area_clicked"]
 [connection signal="mouse_entered" from="arrow_left/arrow_left" to="." method="_on_arrow_left_mouse_entered"]
+[connection signal="mouse_exited" from="arrow_left/arrow_left" to="." method="_on_arrow_left_mouse_exited"]
 [connection signal="area_clicked" from="arrow_up/arrow_up" to="." method="_on_arrow_up_clicked"]
 [connection signal="mouse_entered" from="arrow_up/arrow_up" to="." method="_on_arrow_up_mouse_entered"]
+[connection signal="mouse_exited" from="arrow_up/arrow_up" to="." method="_on_arrow_up_mouse_exited"]
 [connection signal="area_clicked" from="arrow_down/arrow_down" to="." method="_on_arrow_down_area_clicked"]
 [connection signal="mouse_entered" from="arrow_down/arrow_down" to="." method="_on_arrow_down_mouse_entered"]
+[connection signal="mouse_exited" from="arrow_down/arrow_down" to="." method="_on_arrow_down_mouse_exited"]
+[connection signal="area_clicked" from="launch_button/launch_button" to="." method="_on_launch_button_area_clicked"]
+[connection signal="mouse_entered" from="launch_button/launch_button" to="." method="_on_launch_button_mouse_entered"]
+[connection signal="mouse_exited" from="launch_button/launch_button" to="." method="_on_launch_button_mouse_exited"]

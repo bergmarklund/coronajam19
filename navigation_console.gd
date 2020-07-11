@@ -13,6 +13,10 @@ var green = Color(0.11,0.38,0.11)
 var yellow = Color(1,1,0)
 var red = Color(1,0,0)
 var blue = Color(0,0,1)
+
+var hover_yellow = Color(1,1,0)
+var arrow_grey = Color(0.41, 0.41, 0.41)
+var launch_red = Color(1,0,0)
 #var green = Color(0,0,0)
 
 var navigation_led_color_state = 0
@@ -102,7 +106,6 @@ func _on_arrow_down_area_clicked():
 		change_led_color(get_led_by_pos(navigation_led_pos), green)
 	navigation_led_pos.y += 1
 
-
 func _on_arrow_right_mouse_entered():
 	change_arrow_color(get_child(0), yellow)
 
@@ -114,3 +117,25 @@ func _on_arrow_up_mouse_entered():
 
 func _on_arrow_down_mouse_entered():
 	change_arrow_color(get_child(3), yellow)
+
+
+func _on_arrow_right_mouse_exited():
+	change_arrow_color(get_child(0), arrow_grey)
+
+func _on_arrow_left_mouse_exited():
+	change_arrow_color(get_child(1), arrow_grey)
+
+func _on_arrow_up_mouse_exited():
+	change_arrow_color(get_child(2), arrow_grey)
+
+func _on_arrow_down_mouse_exited():
+	change_arrow_color(get_child(3), arrow_grey)
+
+func _on_launch_button_mouse_entered():
+	change_arrow_color(get_child(4), yellow)
+
+func _on_launch_button_mouse_exited():
+	change_arrow_color(get_child(4), arrow_grey)
+
+func _on_launch_button_area_clicked():
+	pass
