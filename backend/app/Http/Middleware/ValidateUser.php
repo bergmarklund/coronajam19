@@ -6,8 +6,6 @@ use Closure;
 
 class ValidateUser
 {
-    protected $user = null;
-
     /**
      * Check if the incoming request has a valid user token.
      *
@@ -18,17 +16,12 @@ class ValidateUser
     public function handle($request, Closure $next)
     {
         $token = $request->route('token');
-        $this->user = \App\User::where('token', $token)->first();
+        $user = \App\User::where('token', $token)->first();
 
-        if($this->user == null) {
+        if($user == null) {
             return response()->json(['message' => 'User not found with provided token: ' . $token], 401);
         }
 
         return $next($request);
-    }
-
-    public function user()
-    {
-        return $this->user;
     }
 }
