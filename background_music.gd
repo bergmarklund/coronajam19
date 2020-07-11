@@ -32,7 +32,22 @@ var sounds = [
 	preload("res://assets/sounds/ambiance/misc/equipment_12.wav")
 ]
 
+var recieve = {
+	"a": preload("res://assets/sounds/communication/receive/A_low.wav"),
+	"b": preload("res://assets/sounds/communication/receive/B_low.wav"),
+	"c": preload("res://assets/sounds/communication/receive/C_low.wav"),
+	"D": preload("res://assets/sounds/communication/receive/D_high.wav"),
+	"d": preload("res://assets/sounds/communication/receive/D_low.wav"),
+	"e": preload("res://assets/sounds/communication/receive/E_low.wav"),
+	"f": preload("res://assets/sounds/communication/receive/F_low.wav"),
+	"g": preload("res://assets/sounds/communication/receive/G_low.wav")
+}
+
+var message_queue = []
+var message = []
+
 func _ready():
+	$message_stream.connect("finished", self, "_play_message")
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 	create_new_timer()
@@ -55,3 +70,22 @@ func play_random_sound():
 	var sound = sounds[i]
 	$random_stream.set_stream(sound)
 	$random_stream.play()
+	
+func add_message(message):
+	var msg = []
+	for c in message:
+		if recieve.has(c):
+			var tone = recieve[c]
+			msg.append(tone)
+	message_queue.append(msg)
+
+func _process(_delta):
+	if len(message) == 0 && len(message_queue) > 0:
+		message = message_queue.pop_front()
+		_play_message()
+		
+func _play_message():
+	if len(message) > 0:
+		var tone = message.pop_front()
+		$message_stream.set_stream(tone)
+		$message_stream.play()
