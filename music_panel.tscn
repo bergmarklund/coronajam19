@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/interactive_screens/music/panel_music_detailed.glb" type="PackedScene" id=1]
+
+[node name="panel_music_detailed" instance=ExtResource( 1 )]
