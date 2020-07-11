@@ -30,4 +30,9 @@ class Item extends Model
      */
     protected $casts = [
     ];
+
+    public function ship()
+    {
+        return $this->belongsTo('App\Ship');
+    }
 }

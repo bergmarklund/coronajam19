@@ -14,4 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Join
+Route::post('/join', 'JoinController@index')->name('join.index');
+
+// Test
 Route::get('/test', 'TestController@index')->name('test.index');
