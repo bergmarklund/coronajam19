@@ -21,6 +21,9 @@ class TestController extends Controller
      */
     public function index()
     {
-        return ['test' => 'hi!'];
+        return [
+            'action' => 'test',
+            'test' => 'hi!'
+        ];
     }
 }
