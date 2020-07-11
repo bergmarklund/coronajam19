@@ -5,17 +5,19 @@
 [ext_resource path="res://music_panel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://music_console.gd" type="Script" id=4]
 
-[node name="music_panel" type="Spatial"]
+[node name="music_console" type="Spatial"]
 script = ExtResource( 4 )
 
 [node name="LED" parent="." instance=ExtResource( 1 )]
 transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, -12.783, 0.25, -8.008 )
-
-[node name="panel_music_detailed" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0106449, -0.000909805, 0.00718069 )
+visible = false
 
 [node name="music_choice_button" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.98, 0, -8 )
+visible = false
+
+[node name="panel_music_detailed" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0106449, -0.000909805, 0.00718069 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 25, -1 )
