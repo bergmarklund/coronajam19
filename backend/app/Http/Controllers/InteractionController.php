@@ -11,7 +11,7 @@ use App\User;
 /**
  * Handles all the steps to allow someone to join the game
  */
-class MoveController extends Controller
+class InteractionController extends Controller
 {
     public function __construct()
     {
@@ -21,12 +21,25 @@ class MoveController extends Controller
     /**
      * Move player's ship in a particular direction
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index($token, User $user, $direction)
+    public function move($direction, User $user, $token)
     {
         dd($direction);
+
+        return [
+            'user' => $user
+        ];
+    }
+
+    /**
+     * Send a message
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function message($content, User $user, $token)
+    {
+        dd($content);
 
         return [
             'user' => $user

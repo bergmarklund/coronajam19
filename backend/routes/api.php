@@ -17,8 +17,9 @@ use Illuminate\Support\Facades\Route;
 // Join
 Route::post('/join', 'JoinController@index')->name('join.index');
 
-// Move
-Route::get('/{token}/{user}/move/{direction}', 'MoveController@index')->name('move.index');
+// Interaction
+Route::get('/move/{direction}/{user}/{token}', 'InteractionController@move')->name('interaction.move');
+Route::get('/message/{content}/{user}/{token}', 'InteractionController@message')->name('interaction.message');
 
 // Test
 Route::get('/test', 'TestController@index')->name('test.index');
