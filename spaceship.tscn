@@ -44,8 +44,8 @@ area_path = NodePath("../msg_console")
 shape = SubResource( 1 )
 
 [node name="OmniLight" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.16225, 7.62497, -3.31762 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.58044, 7.62497, 1.23102 )
 shadow_enabled = true
-omni_range = 10.0
+omni_range = 15.2
 [connection signal="area_clicked" from="nav_console" to="." method="_on_nav_console_area_clicked"]
 [connection signal="area_clicked" from="msg_console" to="." method="_on_msg_console_area_clicked"]
