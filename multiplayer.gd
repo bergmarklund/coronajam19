@@ -1,18 +1,31 @@
 extends Node
 
 var API_BASE_URL = "http://coronajam19.app.fernandobevilacqua.com/api"
-var CREDENTIALS_FILE_PATH = "user://credentials.json"
+var CREDENTIALS_FILE_PATH = "user://credentials-v202007111943.json"
 
-# Declare member variables here. Examples:
+######################################################
+# If you need to read any multiplayer data, just use
+# Multiplayer.data anywhere in your code. For instance,
+# to get the position of the ship, use:
+#
+#  Multiplayer.data.ship.row
+#
+# Multiplayer.data contains the info returned by
+# the /sync API endpoint after a Multiplayer.sync()
+# is invoked.
+#
+var data = {}
+
+# Internal variables
 var user_id = 0
 var token = ""
-var ship = {}
-var messages = {}
 var http_request = null
+var timer = 0
+var sync_interval_sec = 2
 
-#
-# API endpoits
-#
+#######################################################
+#          Methods to acesss API endpoits             #
+#######################################################
 
 func join():
 	fetch(API_BASE_URL + "/join")
@@ -31,14 +44,29 @@ func warp(row, col):
 func message(content):
 	fetch_with_credentials(API_BASE_URL + "/message/" + content.percent_encode())
 	
+func sync():
+	fetch_with_credentials(API_BASE_URL + "/sync")	
+	
 func test():
 	fetch(API_BASE_URL + "/test")
+	
+
+#######################################################
+#        Multiplayer client code below                #
+#######################################################
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("[Multiplayer] client starting")
 	init_http_client()
 	load_credentials_or_join()
+	
+func _process(delta):
+	timer += delta
+	if timer > sync_interval_sec:
+		print("[Multiplayer] requesting sync")
+		timer = 0
+		sync()
 
 func init_http_client():
 	# Create an HTTP request node and connect its completion signal.
@@ -88,10 +116,23 @@ func fetch(url):
 		push_error("An error occurred in the HTTP request")
 
 func _on_request_completed(result, response_code, headers, body):
-	var json = JSON.parse(body.get_string_from_utf8())
-	var action = json.result.action
+	var body_string = body.get_string_from_utf8()
 	
+	print("[Multiplayer] raw response (code=" + String(response_code) + "): " + body_string)
+	
+	if response_code == 404:
+		print("[Multiplayer] problem with fetch")
+		print(result)
+		return
+	
+	var json = JSON.parse(body_string)
 	print("[Multiplayer] response received: " + JSON.print(json.result))
+
+	var action = json.result.action
 	
 	if action == "join":
 		save_credentials(json.result.user)
+		load_credentials()
+		
+	if action == "sync":
+		data = json.result
