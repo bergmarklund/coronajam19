@@ -14,7 +14,6 @@ class TestController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('validated');
     }
 
     /**
@@ -22,6 +21,9 @@ class TestController extends Controller
      */
     public function index()
     {
-        return ['test' => 'hi!'];
+        return [
+            'action' => 'test',
+            'test' => 'hi!'
+        ];
     }
 }
