@@ -1,9 +1,16 @@
 ## API
 
-This documents describes all API endpoints that the backend provides. The API is available at [http://coronajam19.app.fernandobevilacqua.com/api/](coronajam19.app.fernandobevilacqua.com/api/).
+This documents describes all API endpoints that the backend provides. The API is available at [http://coronajam19.app.fernandobevilacqua.com/api/](coronajam19.app.fernandobevilacqua.com/api/). The table below shows a summary of all available API endpoints.
 
+
+| Name                 | Method | Endpoint | URL |
+|----------------------|--------|----------|-----|
+| [join](#join)        | `POST` | `/join`  | [http://coronajam19.app.fernandobevilacqua.com/api/join](coronajam19.app.fernandobevilacqua.com/api/join) |
 
 ### /join
+______
+
+Allow a player to join the game.
 
 | Method | Endpoint | URL |
 |--------|----------|-----|
