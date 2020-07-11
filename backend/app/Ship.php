@@ -30,4 +30,9 @@ class Ship extends Model
      */
     protected $casts = [
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

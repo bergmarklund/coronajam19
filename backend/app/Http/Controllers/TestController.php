@@ -12,6 +12,11 @@ use App\User;
 
 class TestController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('validated');
+    }
+
     /**
      *
      */

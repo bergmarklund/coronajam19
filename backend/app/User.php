@@ -34,4 +34,9 @@ class User extends Authenticatable
      */
     protected $casts = [
     ];
+
+    public function ship()
+    {
+        return $this->hasOne('App\Ship');
+    }
 }
