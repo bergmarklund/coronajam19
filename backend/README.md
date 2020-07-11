@@ -133,7 +133,7 @@ Required fields in the request:
 | user_id   | int    | User's id, as informed by `/join`.|
 | token     | string | User's token, as informed by `/join`. |
 
-Response example:
+Response example (with no messages in the inbox):
 
 ```json
 {
@@ -152,6 +152,66 @@ Response example:
             "created_at": "2020-07-11T13:19:59.000000Z",
             "updated_at": "2020-07-11T17:55:34.000000Z"
         }
-    }
+    },
+    "messages": []
+}
+```
+
+Response example (with some messages):
+
+```json
+{
+    "user": {
+        "id": 1,
+        "name": "foo",
+        "country": "BR",
+        "token": "LB1h0Pq5sgSPUIzsr0qvx8UOjkDfR61g",
+        "created_at": "2020-07-11T13:19:59.000000Z",
+        "updated_at": "2020-07-11T13:19:59.000000Z",
+        "ship": {
+            "id": 1,
+            "user_id": 1,
+            "row": 10,
+            "col": -4,
+            "created_at": "2020-07-11T13:19:59.000000Z",
+            "updated_at": "2020-07-11T17:55:34.000000Z"
+        }
+    },
+    "messages": [
+        {
+            "id": 9,
+            "ship_id": 2,
+            "content": "ha",
+            "row": 10,
+            "col": -4,
+            "created_at": "2020-07-11T19:05:31.000000Z",
+            "updated_at": "2020-07-11T19:05:31.000000Z",
+            "ship": {
+                "id": 2,
+                "user_id": 2,
+                "row": 10,
+                "col": -4,
+                "created_at": "2020-07-11T13:19:59.000000Z",
+                "updated_at": "2020-07-11T17:55:34.000000Z"
+            }
+        },
+        {
+            "id": 10,
+            "ship_id": 3,
+            "content": "hej",
+            "row": 15,
+            "col": 0,
+            "created_at": "2020-07-11T19:05:53.000000Z",
+            "updated_at": "2020-07-11T19:05:53.000000Z",
+            "ship": {
+                "id": 3,
+                "user_id": 3,
+                "row": 15,
+                "col": 0,
+                "created_at": "2020-07-11T13:19:59.000000Z",
+                "updated_at": "2020-07-11T17:55:34.000000Z"
+            }
+        }
+    ]
 }
 ```

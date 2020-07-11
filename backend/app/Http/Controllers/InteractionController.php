@@ -77,8 +77,27 @@ class InteractionController extends Controller
      */
     public function sync(User $user, $token)
     {
+        $reach = config('game.message_quadrants_reach', 10);
+        $maxReceive = config('game.message_max_receive', 50);
+
+        $ship = $user->ship;
+
+        $filter = [
+            ['ship_id', '!=', $ship->id], // exclude own ship messages
+            ['row', '>=', $ship->row - $reach],
+            ['row', '<=', $ship->row + $reach],
+            ['col', '>=', $ship->col - $reach],
+            ['col', '<=', $ship->col + $reach],
+        ];
+
+        $messages = Message::where($filter)
+                        ->orderBy('created_at', 'asc')
+                        ->take(30)
+                        ->get();
+
         return [
-            'user' => $user
+            'user' => $user,
+            'messages' => $messages
         ];
     }
 }

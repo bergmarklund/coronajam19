@@ -24,6 +24,13 @@ class Message extends Model
     ];
 
     /**
+     * The relationships that should always be loaded.
+     *
+     * @var array
+     */
+    protected $with = ['ship'];
+
+    /**
      * The attributes that should be cast to native types.
      *
      * @var array
