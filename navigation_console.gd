@@ -1,14 +1,15 @@
 extends Spatial
 
+# Variables
 var led = preload("res://led.tscn")
-var arrow = preload("res://navigation_arrow.tscn")
-var left_arrow = arrow.instance()
-
 var led_nodes = []
 var number_of_leds = 29
 var center_led_pos = Vector2((number_of_leds-1) / 2, (number_of_leds-1) / 2)
+var navigation_led_pos = center_led_pos
+var navigation_led_color_state = 0
+var time = 0
 
-# Colrs
+# Colors
 var green = Color(0.11,0.38,0.11)
 var yellow = Color(1,1,0)
 var red = Color(1,0,0)
@@ -17,19 +18,13 @@ var blue = Color(0,0,1)
 var hover_yellow = Color(1,1,0)
 var arrow_grey = Color(0.41, 0.41, 0.41)
 var launch_red = Color(1,0,0)
-#var green = Color(0,0,0)
 
-var navigation_led_color_state = 0
-var navigation_led_pos = center_led_pos
-var time = 0
-# var led_nodes = []
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	render_grid()
-	left_arrow = arrow.instance()
-	# green = get_led_color(1,1)
-	
+
 
 func render_grid():
 	for i in range(number_of_leds):
@@ -44,7 +39,7 @@ func render_led(x_pos, z_pos):
 		led_node = change_led_color(led_node, red)
 	led_nodes.append(led_node)
 	self.add_child(led_node)
-	
+
 func blinking_navigation_led(pos_2d):
 	var led_node = get_led_by_pos(pos_2d)
 	var color = yellow
@@ -52,40 +47,35 @@ func blinking_navigation_led(pos_2d):
 		color = green
 	change_led_color(led_node, color)
 	navigation_led_color_state += 1
-	
+
 func get_led_by_pos(pos_2d):
 	return led_nodes[ pos_2d.x*29 + pos_2d.y]
-	
-#func get_led_color(x_pos, z_pos):
-#	var led_node = get_led_by_pos(x_pos, z_pos)
-#	return led_node.get_child(2).get_surface_material()
-	
+
 func change_led_color(led_node, color):
 	var material = SpatialMaterial.new()
 	material.albedo_color = color
 	for i in range(2,6):
 		led_node.get_child(i).set_surface_material(0, material)
 	return led_node
-	
+
 func change_arrow_color(arrow_node, color):
 	var material = SpatialMaterial.new()
 	material.albedo_color = color
-	print(arrow_node)
-	print(arrow_node.get_child(0))
 	arrow_node.get_child(0).set_surface_material(0, material)
 
-	#print("created a node at pos " + str(posistion))
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	time = time + _delta
 	if not compare_vector_pos(center_led_pos, navigation_led_pos) and int(time) % 2 == 1:
 		blinking_navigation_led(navigation_led_pos)
 		time = 0
-		
+
 func compare_vector_pos(vec1, vec2):
 	var same_pos = vec1.x == vec2.x and vec1.y == vec2.y
 	return same_pos
 	
+
+# Hover and click functions
 func _on_arrow_up_clicked():
 	if not compare_vector_pos(center_led_pos, navigation_led_pos):
 		change_led_color(get_led_by_pos(navigation_led_pos), green)
@@ -117,7 +107,6 @@ func _on_arrow_up_mouse_entered():
 
 func _on_arrow_down_mouse_entered():
 	change_arrow_color(get_child(3), yellow)
-
 
 func _on_arrow_right_mouse_exited():
 	change_arrow_color(get_child(0), arrow_grey)
