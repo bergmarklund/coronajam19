@@ -1,0 +1,25 @@
+name: deploy
+on: [push]
+env:
+  PHP_CLI: /usr/local/php73/bin/php
+  COMPOSER_CLI: /usr/local/php73/bin/php ~/.php/composer/composer
+  PROD_HOST: coronajam19.app.fernandobevilacqua.com
+  PROD_WEB_DIRECTORY: /home/fbappcoronajam19/coronajam19.app.fernandobevilacqua.com
+jobs:
+  deploy:
+    name: Deploy to production
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Prepare deploy server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.PROD_HOST }}
+        username: ${{ secrets.PROD_USERNAME }}
+        password: ${{ secrets.PROD_PASSWORD }}
+        script: |
+          cd ${{ env.PROD_WEB_DIRECTORY }}
+          git pull
+          cd backend
+          ${{ env.COMPOSER_CLI }} install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+          ${{ env.PHP_CLI }} artisan migrate
