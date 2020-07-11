@@ -17,7 +17,19 @@ var sounds = [
 	preload("res://assets/sounds/ambiance/misc/synth_10.wav"),
 	preload("res://assets/sounds/ambiance/misc/synth_11.wav"),
 	preload("res://assets/sounds/ambiance/misc/synth_12.wav"),
-	preload("res://assets/sounds/ambiance/misc/synth_13.wav")
+	preload("res://assets/sounds/ambiance/misc/synth_13.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_1.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_2.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_3.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_4.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_5.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_6.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_7.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_8.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_9.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_10.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_11.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_12.wav")
 ]
 
 func _ready():

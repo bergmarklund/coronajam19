@@ -19,6 +19,10 @@ config/name="Coronajam 2019"
 run/main_scene="res://main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Multiplayer="*res://multiplayer.gd"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"

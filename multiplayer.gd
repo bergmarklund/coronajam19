@@ -17,9 +17,23 @@ var http_request = null
 func join():
 	fetch(API_BASE_URL + "/join")
 	
+func move(direction):
+	var valid_direction = direction == "up" || direction == "down" || direction == "left" || direction == "right"
+	if !valid_direction:
+		printerr("[Multiplayer] invalid direction for move: " + direction + ". Use either up, down, left or right.")
+		return
+		
+	fetch_with_credentials(API_BASE_URL + "/move/" + direction)
+	
+func warp(row, col):
+	fetch_with_credentials(API_BASE_URL + "/warp/" + String(row) + "/" + String(col))
+	
+func message(content):
+	fetch_with_credentials(API_BASE_URL + "/message/" + content.percent_encode())
+	
 func test():
 	fetch(API_BASE_URL + "/test")
-
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	print("[Multiplayer] client starting")
@@ -63,7 +77,12 @@ func load_credentials():
 	user_id = credentials.id
 	token = credentials.token
 
+func fetch_with_credentials(url):
+	fetch(url + "/" + String(user_id) + "/" + token)
+
 func fetch(url):
+	print("[Multiplayer] fetch: " + url)
+	
 	var error = http_request.request(url)
 	if error != OK:
 		push_error("An error occurred in the HTTP request")
