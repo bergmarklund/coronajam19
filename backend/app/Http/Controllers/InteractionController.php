@@ -41,6 +41,7 @@ class InteractionController extends Controller
         $ship->save();
         
         return [
+            'action' => 'move',
             'ship' => $ship
         ];
     }
@@ -69,6 +70,7 @@ class InteractionController extends Controller
         $ship->save();
         
         return [
+            'action' => 'warp',
             'ship' => $ship
         ];
     }
@@ -94,6 +96,7 @@ class InteractionController extends Controller
         ]);
 
         return [
+            'action' => 'message',
             'message' => $message
         ];
     }
@@ -124,6 +127,7 @@ class InteractionController extends Controller
                         ->get();
 
         return [
+            'action' => 'sync',
             'user' => $user,
             'messages' => $messages
         ];

@@ -1,11 +1,11 @@
 ## API
 
-This documents describes all API endpoints that the backend provides. The API is available at [coronajam19.app.fernandobevilacqua.com/api/](http://coronajam19.app.fernandobevilacqua.com/api/). The table below shows a summary of all available API endpoints.
+This document describes all API endpoints that the backend provides. The API is available at [coronajam19.app.fernandobevilacqua.com/api/](http://coronajam19.app.fernandobevilacqua.com/api/test). The table below shows a summary of all available API endpoints.
 
 
 | Name                 | Method | Endpoint | URL |
 |----------------------|--------|----------|-----|
-| [join](#join)        | `POST` | `/join`  | [coronajam19.app.fernandobevilacqua.com/api/join](http://coronajam19.app.fernandobevilacqua.com/api/join) |
+| [join](#join)        | `GET` | `/join`  | [coronajam19.app.fernandobevilacqua.com/api/join](http://coronajam19.app.fernandobevilacqua.com/api/join) |
 | [move](#move)        | `GET`  | `/move/{direction}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc) |
 | [warp](#warp)        | `GET`  | `/warp/{row}/{col}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/warp/10/15/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/warp/10/15/1/abc) |
 | [message](#message)  | `GET`  | `/message/{content}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/message/hi/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/api/message/hi/1/abc) |
