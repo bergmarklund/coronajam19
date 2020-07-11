@@ -41,6 +41,8 @@ func draw_sun():
 	var i = rng.randi_range(0, 360)
 	var axis = Vector3(0, 1, 0)
 	$DirectionalLight.rotate(axis, i)
+	i = rng.randf_range(0.5, 4.0)
+	$DirectionalLight.light_energy = i
 
 func draw_planets():
 	clear_planets()
