@@ -1,13 +1,13 @@
 ## API
 
-This documents describes all API endpoints that the backend provides. The API is available at [http://coronajam19.app.fernandobevilacqua.com/api/](coronajam19.app.fernandobevilacqua.com/api/). The table below shows a summary of all available API endpoints.
+This documents describes all API endpoints that the backend provides. The API is available at [coronajam19.app.fernandobevilacqua.com/api/](http://coronajam19.app.fernandobevilacqua.com/api/). The table below shows a summary of all available API endpoints.
 
 
 | Name                 | Method | Endpoint | URL |
 |----------------------|--------|----------|-----|
-| [join](#join)        | `POST` | `/join`  | [http://coronajam19.app.fernandobevilacqua.com/api/join](coronajam19.app.fernandobevilacqua.com/api/join) |
-| [move](#move)        | `GET`  | `/move/{direction}/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc](coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc) |
-| [message](#message)  | `GET`  | `/message/{content}/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/message/hi/1/abc](coronajam19.app.fernandobevilacqua.com/api/api/message/hi/1/abc) |
+| [join](#join)        | `POST` | `/join`  | [coronajam19.app.fernandobevilacqua.com/api/join](http://coronajam19.app.fernandobevilacqua.com/api/join) |
+| [move](#move)        | `GET`  | `/move/{direction}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc) |
+| [message](#message)  | `GET`  | `/message/{content}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/message/hi/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/api/message/hi/1/abc) |
 
 ### /join
 ______
@@ -16,8 +16,8 @@ Allow a player to join the game.
 
 | Method | Endpoint | URL |
 |--------|----------|-----|
-| `GET` | `/join` | [http://coronajam19.app.fernandobevilacqua.com/api/join](coronajam19.app.fernandobevilacqua.com/api/join) |
-| `GET` | `/join/{name}/{country}` | [http://coronajam19.app.fernandobevilacqua.com/api/join](coronajam19.app.fernandobevilacqua.com/api/join/Testg/BR) |
+| `GET` | `/join` | [coronajam19.app.fernandobevilacqua.com/api/join](http://coronajam19.app.fernandobevilacqua.com/api/join) |
+| `GET` | `/join/{name}/{country}` | [coronajam19.app.fernandobevilacqua.com/api/join](http://coronajam19.app.fernandobevilacqua.com/api/join/Testg/BR) |
 
 You can either acess `/join` directly (no params) or you must provide the following fields in the request:
 
@@ -58,7 +58,7 @@ Move the player ship in space.
 
 | Method | Endpoint | URL |
 |--------|----------|-----|
-| `GET`  | `/move/{direction}/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc](coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc) |
+| `GET`  | `/move/{direction}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc) |
 
 Required fields in the request:
 
@@ -91,7 +91,7 @@ Broadcast a message to nearby quadrants
 
 | Method | Endpoint | URL |
 |--------|----------|-----|
-| `GET`  | `/message/{content}/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/message/hej/1/abc](coronajam19.app.fernandobevilacqua.com/api/message/hej/1/abc) |
+| `GET`  | `/message/{content}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/message/hej/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/message/hej/1/abc) |
 
 Required fields in the request:
 
@@ -124,7 +124,7 @@ Broadcast a message to nearby quadrants
 
 | Method | Endpoint | URL |
 |--------|----------|-----|
-| `GET`  | `/sync/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/sync/1/abc](coronajam19.app.fernandobevilacqua.com/api/sync/1/abc) |
+| `GET`  | `/sync/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/sync/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/sync/1/abc) |
 
 Required fields in the request:
 
