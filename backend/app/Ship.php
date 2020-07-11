@@ -29,6 +29,9 @@ class Ship extends Model
      * @var array
      */
     protected $casts = [
+        'user_id' => 'integer',
+        'row' => 'integer',
+        'col' => 'integer'
     ];
 
     public function user()

@@ -29,6 +29,9 @@ class Item extends Model
      * @var array
      */
     protected $casts = [
+        'ship_id' => 'integer',
+        'row' => 'integer',
+        'col' => 'integer'
     ];
 
     public function ship()
