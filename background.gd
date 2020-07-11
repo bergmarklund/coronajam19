@@ -17,7 +17,14 @@ var planets = [
 var stars = [
 	preload("background_scenes/stars/star_1.tscn"),
 	preload("background_scenes/stars/star_2.tscn"),
-	preload("background_scenes/stars/star_3.tscn")
+	preload("background_scenes/stars/star_3.tscn"),
+	preload("background_scenes/stars/star_4.tscn"),
+	preload("background_scenes/stars/star_5.tscn"),
+	preload("background_scenes/stars/star_6.tscn"),
+	preload("background_scenes/stars/star_7.tscn"),
+	preload("background_scenes/stars/star_8.tscn"),
+	preload("background_scenes/stars/star_9.tscn"),
+	preload("background_scenes/stars/star_10.tscn")
 ]
 
 var rng = null
@@ -40,9 +47,10 @@ func rotate_planets():
 	var positions = $planets.get_children()
 	var idx = 0
 	for pos in positions:
-		var child = pos.get_children()
-		if child[0]:
-			child[0].rotate(Vector3(0, 1, 0), planet_rotations[idx])
+		if(pos.get_child_count() > 0):
+			var child = pos.get_children()
+			if child[0]:
+				child[0].rotate(Vector3(0, 1, 0), planet_rotations[idx])
 		idx += 1 
 		
 func draw():
@@ -69,10 +77,13 @@ func draw_sun():
 func draw_planets():
 	clear_planets()
 	var positions = $planets.get_children()
+	var planet_chance = 0.5
 	for pos in positions:
-		var i = rng.randi_range(0, len(planets) -1)
-		var planet = planets[i].instance()
-		pos.add_child(planet)
+		if(rng.randf() < planet_chance):
+			var i = rng.randi_range(0, len(planets) -1)
+			var planet = planets[i].instance()
+			pos.add_child(planet)
+			planet_chance -= 0.2
 	
 func clear_planets():
 	var positions = $planets.get_children()
