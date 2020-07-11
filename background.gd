@@ -40,7 +40,7 @@ func reload(rng_seed):
 	rng.set_seed(rng_seed)
 	draw()
 	
-func _process(delta):
+func _process(_delta):
 	rotate_planets()
 
 func rotate_planets():

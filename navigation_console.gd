@@ -1,4 +1,5 @@
 extends Spatial
+signal exit_nav_console
 
 # Variables
 var led = preload("res://led.tscn")
@@ -20,6 +21,10 @@ var arrow_grey = Color(0.41, 0.41, 0.41)
 var launch_red = Color(1,0,0)
 
 
+func _input(event):
+	if event is InputEventMouseButton:	
+		if(event.pressed && event.button_index == BUTTON_RIGHT):
+			emit_signal("exit_nav_console")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
