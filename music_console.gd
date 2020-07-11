@@ -1,4 +1,5 @@
 extends Spatial
+signal exit_msg_console
 
 var led = preload("res://led.tscn")
 var button = preload("res://music_button.tscn")
@@ -15,6 +16,12 @@ var hover_yellow = Color(1,1,0)
 var green = Color(0.11,0.38,0.11)
 var yellow = Color(1,1,0)
 
+
+func _input(event):
+	if event is InputEventMouseButton:	
+		if(event.pressed && event.button_index == BUTTON_RIGHT):
+			emit_signal("exit_msg_console")
+			
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	render_leds()

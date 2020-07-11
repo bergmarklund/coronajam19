@@ -2,7 +2,7 @@ extends Node
 
 var spaceship_scene = preload("res://spaceship.tscn")
 var navconsole_scene = preload("res://navigation_console.tscn")
-# Called when the node enters the scene tree for the first time.
+var msgconsole_scene = preload("res://music_console.tscn")
 
 var rng_seed = 1
 
@@ -30,6 +30,12 @@ func goto_nav_console():
 	var nav_console = navconsole_scene.instance()
 	nav_console.connect("exit_nav_console", self, "_on_exit_nav_console")
 	$current_scene.add_child(nav_console)
+	
+func goto_msg_console():
+	clear_current_scene()
+	var msg_console = msgconsole_scene.instance()
+	msg_console.connect("exit_msg_console", self, "_on_exit_msg_console")
+	$current_scene.add_child(msg_console)
 
 
 func _on_display_nav_console():
@@ -39,8 +45,10 @@ func _on_exit_nav_console():
 	goto_spaceship(1)
 	
 func _on_display_msg_console():
-	print("display msg")
+	goto_msg_console()
 	
+func _on_exit_msg_console():
+	goto_spaceship(2)
 
 
 
