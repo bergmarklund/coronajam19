@@ -25,10 +25,21 @@ class InteractionController extends Controller
      */
     public function move($direction, User $user, $token)
     {
-        dd($direction);
+        $ship = $user->ship;
 
+        switch($direction) {
+            case 'up': $ship->row -= 1; break;
+            case 'down': $ship->row += 1; break;
+            case 'left': $ship->col -= 1; break;
+            case 'right': $ship->col += 1; break;
+            default:
+                throw new \Exception('Unknown move direction: ' + $direction);
+        }
+
+        $ship->save();
+        
         return [
-            'user' => $user
+            'ship' => $ship
         ];
     }
 
@@ -41,6 +52,18 @@ class InteractionController extends Controller
     {
         dd($content);
 
+        return [
+            'user' => $user
+        ];
+    }
+
+    /**
+     * Send a message
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sync(User $user, $token)
+    {
         return [
             'user' => $user
         ];

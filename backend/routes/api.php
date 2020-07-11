@@ -14,12 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Join
+// Join 
 Route::post('/join', 'JoinController@index')->name('join.index');
 
 // Interaction
 Route::get('/move/{direction}/{user}/{token}', 'InteractionController@move')->name('interaction.move');
 Route::get('/message/{content}/{user}/{token}', 'InteractionController@message')->name('interaction.message');
+Route::get('/sync/{user}/{token}', 'InteractionController@sync')->name('interaction.sync');
 
 // Test
 Route::get('/test', 'TestController@index')->name('test.index');

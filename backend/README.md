@@ -6,6 +6,8 @@ This documents describes all API endpoints that the backend provides. The API is
 | Name                 | Method | Endpoint | URL |
 |----------------------|--------|----------|-----|
 | [join](#join)        | `POST` | `/join`  | [http://coronajam19.app.fernandobevilacqua.com/api/join](coronajam19.app.fernandobevilacqua.com/api/join) |
+| [move](#move)        | `GET`  | `/move/{direction}/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc](coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc) |
+| [message](#message)  | `GET`  | `/message/{content}/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/message/hi/1/abc](coronajam19.app.fernandobevilacqua.com/api/api/message/hi/1/abc) |
 
 ### /join
 ______
@@ -47,3 +49,35 @@ Response example:
 ```
 
 The value available in `user.token` in the response must be saved in the client and sent along with all further requests.
+
+### /move
+______
+
+Move the player ship in space.
+
+| Method | Endpoint | URL |
+|--------|----------|-----|
+| `GET`  | `/move/{direction}/{user_id}/{token}`  | [http://coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc](coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc) |
+
+Required fields in the request:
+
+| Name      | Type   | Description        |
+|-----------|--------|--------------------|
+| direction | string | One of the following: `"up"`, `"down"`, `"left"`, `"right"`. |
+| user_id   | int    | User's id, as informed by `/join`.|
+| token     | string | User's token, as informed by `/join`. |
+
+Response example:
+
+```json
+{
+    "ship": {
+        "id": 1,
+        "user_id": "1",
+        "row": 5,
+        "col": "-4",
+        "created_at": "2020-07-11T13:19:59.000000Z",
+        "updated_at": "2020-07-11T17:35:08.000000Z"
+    }
+}
+```
