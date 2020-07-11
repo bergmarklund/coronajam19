@@ -59,6 +59,7 @@ class JoinController extends Controller
         ]);
 
         return [
+            'action' => 'join',
             'user' => $user
         ];
     }
