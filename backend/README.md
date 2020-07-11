@@ -16,9 +16,10 @@ Allow a player to join the game.
 
 | Method | Endpoint | URL |
 |--------|----------|-----|
-| `POST` | `/join`  | [http://coronajam19.app.fernandobevilacqua.com/api/join](coronajam19.app.fernandobevilacqua.com/api/join) |
+| `GET` | `/join` | [http://coronajam19.app.fernandobevilacqua.com/api/join](coronajam19.app.fernandobevilacqua.com/api/join) |
+| `GET` | `/join/{name}/{country}` | [http://coronajam19.app.fernandobevilacqua.com/api/join](coronajam19.app.fernandobevilacqua.com/api/join/Testg/BR) |
 
-Required fields in the request:
+You can either acess `/join` directly (no params) or you must provide the following fields in the request:
 
 | Name     | Type   | Description        |
 |----------|--------|--------------------|
@@ -30,25 +31,25 @@ Response example:
 ```json
 {
     "user": {
-        "name": "foo",
-        "country": "BR",
-        "token": "LB1h0Pq5sgSPUIzsr0qvx8UOjkDfR61g",
-        "updated_at": "2020-07-11T13:19:59.000000Z",
-        "created_at": "2020-07-11T13:19:59.000000Z",
-        "id": 1
-    },
-    "ship": {
-        "user_id": 1,
-        "row": 0,
-        "col": 0,
-        "updated_at": "2020-07-11T13:19:59.000000Z",
-        "created_at": "2020-07-11T13:19:59.000000Z",
-        "id": 1
+        "name": "PlayervKaTyoC2",
+        "country": "?",
+        "token": "2UJKAklIrKRFycUnyeRoGt3q35JwW7VP",
+        "updated_at": "2020-07-11T18:20:54.000000Z",
+        "created_at": "2020-07-11T18:20:54.000000Z",
+        "id": 3,
+        "ship": {
+            "user_id": 3,
+            "row": 20,
+            "col": -11,
+            "updated_at": "2020-07-11T18:20:54.000000Z",
+            "created_at": "2020-07-11T18:20:54.000000Z",
+            "id": 2
+        }
     }
 }
 ```
 
-The value available in `user.token` in the response must be saved in the client and sent along with all further requests.
+The values `user.token` and `user.id` in the response must be saved in the client and sent along with all further requests.
 
 ### /move
 ______

@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
             $table->index('token');
+            $table->unique('name');
         });
     }
 

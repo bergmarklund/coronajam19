@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 // Join 
-Route::post('/join', 'JoinController@index')->name('join.index');
+Route::get('/join', 'JoinController@index')->name('join.index');
+Route::get('/join/{name}/{country}', 'JoinController@index')->name('join.create');
 
 // Interaction
 Route::get('/move/{direction}/{user}/{token}', 'InteractionController@move')->name('interaction.move');
