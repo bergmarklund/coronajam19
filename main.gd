@@ -4,7 +4,7 @@ var spaceship_scene = preload("res://spaceship.tscn")
 var navconsole_scene = preload("res://navigation_console.tscn")
 # Called when the node enters the scene tree for the first time.
 
-var rng_seed = 4
+var rng_seed = 1
 
 func _ready():
 	goto_spaceship(0)

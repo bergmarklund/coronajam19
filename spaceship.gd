@@ -58,3 +58,7 @@ func _on_msg_console_area_entered(area):
 func _on_msg_console_area_exited(area):
 	if(area == $InterpolatedCamera/Area):
 		can_go_to_panels = true
+
+
+func _on_light_switch_light_switch_clicked():
+	$OmniLight.visible = !$OmniLight.visible
