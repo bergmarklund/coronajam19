@@ -7,7 +7,9 @@ This documents describes all API endpoints that the backend provides. The API is
 |----------------------|--------|----------|-----|
 | [join](#join)        | `POST` | `/join`  | [coronajam19.app.fernandobevilacqua.com/api/join](http://coronajam19.app.fernandobevilacqua.com/api/join) |
 | [move](#move)        | `GET`  | `/move/{direction}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/move/up/1/abc) |
+| [warp](#warp)        | `GET`  | `/warp/{row}/{col}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/warp/10/15/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/warp/10/15/1/abc) |
 | [message](#message)  | `GET`  | `/message/{content}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/message/hi/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/api/message/hi/1/abc) |
+| [sync](#sync)        | `GET`  | `/sync/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/sync/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/sync/1/abc) |
 
 ### /join
 ______
@@ -76,7 +78,40 @@ Response example:
         "id": 1,
         "user_id": "1",
         "row": 5,
-        "col": "-4",
+        "col": -4,
+        "created_at": "2020-07-11T13:19:59.000000Z",
+        "updated_at": "2020-07-11T17:35:08.000000Z"
+    }
+}
+```
+
+### /warp
+______
+
+Move the player ship to coordinate in space.
+
+| Method | Endpoint | URL |
+|--------|----------|-----|
+| `GET`  | `/warp/{row}/{col}/{user_id}/{token}`  | [coronajam19.app.fernandobevilacqua.com/api/warp/10/15/1/abc](http://coronajam19.app.fernandobevilacqua.com/api/warp/10/15/1/abc) |
+
+Required fields in the request:
+
+| Name      | Type   | Description        |
+|-----------|--------|--------------------|
+| row       | int    | Row where you want to go in space. |
+| col       | int    | Column where you want to go in space. |
+| user_id   | int    | User's id, as informed by `/join`.|
+| token     | string | User's token, as informed by `/join`. |
+
+Response example:
+
+```json
+{
+    "ship": {
+        "id": 1,
+        "user_id": "1",
+        "row": 10,
+        "col": 15,
         "created_at": "2020-07-11T13:19:59.000000Z",
         "updated_at": "2020-07-11T17:35:08.000000Z"
     }

@@ -46,6 +46,34 @@ class InteractionController extends Controller
     }
 
     /**
+     * Move player's ship in a particular direction
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function warp($row, $col, User $user, $token)
+    {
+        $inputs = [
+            'row' => $row,
+            'col' => $col,
+        ];
+
+        Validator::make($inputs, [
+            'row' =>  'required|integer',
+            'col' =>  'required|integer',
+        ])->validate();
+
+        $ship = $user->ship;
+        $ship->row = $row;
+        $ship->col = $col;
+
+        $ship->save();
+        
+        return [
+            'ship' => $ship
+        ];
+    }
+
+    /**
      * Send a message
      *
      * @return \Illuminate\Http\Response
