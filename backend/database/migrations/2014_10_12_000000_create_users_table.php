@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('country');
             $table->string('token');
             $table->timestamps();
+
+            $table->index('token');
         });
     }
 
