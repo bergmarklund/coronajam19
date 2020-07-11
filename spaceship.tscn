@@ -14,19 +14,19 @@ script = ExtResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5354, 0, -5.50463 )
 
 [node name="InterpolatedCamera" type="InterpolatedCamera" parent="."]
-transform = Transform( 0.642788, 0.323744, -0.694272, 0, 0.906308, 0.422618, 0.766044, -0.271654, 0.582563, 0, 3, 0 )
+transform = Transform( 0.34202, 0.321394, -0.883022, 0, 0.939693, 0.34202, 0.939693, -0.116978, 0.321394, -0.75, 3, -1.3 )
 target = NodePath("../camera_console_nav")
 speed = 4.0
 enabled = true
+
+[node name="camera_origin" type="Spatial" parent="."]
+transform = Transform( 0.34202, 0.321394, -0.883022, 0, 0.939693, 0.34202, 0.939693, -0.116978, 0.321394, -0.75, 3, -1.3 )
 
 [node name="camera_console_msg" type="Spatial" parent="."]
 transform = Transform( 0.34202, 0.538986, -0.769751, 0, 0.819152, 0.573577, 0.939693, -0.196175, 0.280166, 3.67791, 0.663902, -1.41708 )
 
 [node name="camera_console_nav" type="Spatial" parent="."]
 transform = Transform( -0.5, 0.55667, -0.663414, 0, 0.766044, 0.642788, 0.866025, 0.321394, -0.383022, 3.61805, 0.768131, -0.551211 )
-
-[node name="camera_origin" type="Spatial" parent="."]
-transform = Transform( 0.642788, 0.323744, -0.694272, 0, 0.906308, 0.422618, 0.766044, -0.271654, 0.582563, 0, 3, 0 )
 
 [node name="nav_console" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.65628, 0.593925, -0.402495 )

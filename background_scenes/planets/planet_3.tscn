@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/planets/planet_long_moons_lilac.glb" type="PackedScene" id=1]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="planet_long_moons_lilac" parent="." instance=ExtResource( 1 )]
