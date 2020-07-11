@@ -4,8 +4,10 @@ var API_BASE_URL = "http://coronajam19.app.fernandobevilacqua.com/api"
 var CREDENTIALS_FILE_PATH = "user://credentials.json"
 
 # Declare member variables here. Examples:
-var user_id = 2
+var user_id = 0
 var token = ""
+var ship = {}
+var messages = {}
 var http_request = null
 
 #
@@ -20,6 +22,7 @@ func test():
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	print("[Multiplayer] client starting")
 	init_http_client()
 	load_credentials_or_join()
 
@@ -29,22 +32,36 @@ func init_http_client():
 	add_child(http_request)
 	http_request.connect("request_completed", self, "_on_request_completed")
 	
-	
 func has_credentials():
 	var credentials = File.new()
 	return credentials.file_exists(CREDENTIALS_FILE_PATH)
 	
-# Load credentials (if they exist) or join a game
+func save_credentials(content):
+	var credentials = JSON.print(content);
+	var credentials_file = File.new()
+	
+	credentials_file.open(CREDENTIALS_FILE_PATH, File.WRITE)
+	credentials_file.store_string(credentials)
+	
+	print("[Multiplayer] credentials saved locally: " + credentials)
+	
 func load_credentials_or_join():
 	if not has_credentials():
 		join();
 		return
-
+	load_credentials()
+	
+func load_credentials():
 	var credentials_file = File.new()	
 	credentials_file.open(CREDENTIALS_FILE_PATH, File.READ)
 	
-	var credentials = parse_json(credentials_file.get_as_text())
-	print(credentials)
+	var obj = JSON.parse(credentials_file.get_as_text())
+	var credentials = obj.result;
+
+	print("[Multiplayer] found stored credentials: " + JSON.print(credentials))
+
+	user_id = credentials.id
+	token = credentials.token
 
 func fetch(url):
 	var error = http_request.request(url)
@@ -53,4 +70,9 @@ func fetch(url):
 
 func _on_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
-	print(json.result)
+	var action = json.result.action
+	
+	print("[Multiplayer] response received: " + JSON.print(json.result))
+	
+	if action == "join":
+		save_credentials(json.result.user)
