@@ -12,3 +12,5 @@ autoplay = true
 
 [node name="random_stream" type="AudioStreamPlayer" parent="."]
 autoplay = true
+
+[node name="message_stream" type="AudioStreamPlayer" parent="."]
