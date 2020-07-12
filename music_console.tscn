@@ -48,3 +48,6 @@ volume_db = 1.0
 
 [node name="play_button" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.3388 )
+
+[node name="send_button" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.27013, 0, -12.3388 )
