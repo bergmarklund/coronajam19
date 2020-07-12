@@ -18,6 +18,8 @@ var sounds = [
 	preload("res://assets/sounds/ambiance/misc/synth_11.wav"),
 	preload("res://assets/sounds/ambiance/misc/synth_12.wav"),
 	preload("res://assets/sounds/ambiance/misc/synth_13.wav"),
+	preload("res://assets/sounds/ambiance/misc/synth_14.wav"),
+	preload("res://assets/sounds/ambiance/misc/synth_15.wav"),
 	preload("res://assets/sounds/ambiance/misc/equipment_1.wav"),
 	preload("res://assets/sounds/ambiance/misc/equipment_2.wav"),
 	preload("res://assets/sounds/ambiance/misc/equipment_3.wav"),
@@ -29,7 +31,12 @@ var sounds = [
 	preload("res://assets/sounds/ambiance/misc/equipment_9.wav"),
 	preload("res://assets/sounds/ambiance/misc/equipment_10.wav"),
 	preload("res://assets/sounds/ambiance/misc/equipment_11.wav"),
-	preload("res://assets/sounds/ambiance/misc/equipment_12.wav")
+	preload("res://assets/sounds/ambiance/misc/equipment_12.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_13.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_14.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_15.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_16.wav"),
+	preload("res://assets/sounds/ambiance/misc/equipment_17.wav")
 ]
 
 var recieve = {
