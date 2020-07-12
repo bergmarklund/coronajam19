@@ -105,7 +105,7 @@ func play_tones():
 		yield(timer, "timeout")
 		i += 1
 	tone_sequence = []
-	for j in range(5):
+	for j in range(i):
 		led_nodes[j][play_sequence[j]].disable_navigation_led()
 	emit_signal("done_playing_sequence")
 	

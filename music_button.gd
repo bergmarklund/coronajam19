@@ -21,7 +21,6 @@ func change_color(color):
 	var last_child_index = get_child_count() - 1
 	var child_index = 1
 	for child in get_children():
-		print(last_child_index)
 		if child_index == last_child_index:
 			return	
 		child.set_surface_material(0, material)
