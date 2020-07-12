@@ -5,12 +5,13 @@ var id = 0
 var hover_yellow = Color(1,1,0)
 var red = Color(1,0,0)
 
+var timer = null
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
-	#area = get_node(area_path)
-	#area.connect("mouse_entered", self, "_on_music_button_mouse_entered")
-	#area.connect("mouse_exited", self, "_on_music_button_mouse_exited")
+	timer = Timer.new()
+	self.add_child(timer)
+	timer.set_wait_time(0.25)
 
 func change_color(color):
 	var material = SpatialMaterial.new()
@@ -20,10 +21,19 @@ func change_color(color):
 func _on_music_button_mouse_entered():
 	change_color(hover_yellow)
 
-
 func _on_music_button_mouse_exited():
 	change_color(red)
 
-
 func _on_music_button_area_clicked():
+	lower_button()
 	emit_signal("music_button_clicked", id)
+
+func lower_button():
+	var pos = self.transform.origin
+	print(pos)
+	pos.y -= 0.2
+	self.transform.origin = pos
+	timer.start()
+	yield(timer, "timeout")
+	pos.y += 0.2
+	self.transform.origin = pos
