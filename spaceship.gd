@@ -71,4 +71,4 @@ func _on_msg_console_area_exited(area):
 
 
 func _on_light_switch_light_switch_clicked():
-	$OmniLight.visible = !$OmniLight.visible
+	$space_light.visible = !$space_light.visible

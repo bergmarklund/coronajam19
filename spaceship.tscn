@@ -67,10 +67,11 @@ area_path = NodePath(".")
 [node name="CollisionShape" type="CollisionShape" parent="item_collect"]
 shape = SubResource( 3 )
 
-[node name="OmniLight" type="OmniLight" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.522601, 4.72816, -2.47037 )
+[node name="space_light" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.23323, -3.42029 )
+light_energy = 0.5
 shadow_enabled = true
-omni_range = 15.0
+omni_range = 9.0
 
 [node name="star_square_single_white" parent="." instance=ExtResource( 4 )]
 transform = Transform( 100, 0, 0, 0, 1, 0, 0, 0, 100, 0.558647, 9.09094, 1.55055 )
