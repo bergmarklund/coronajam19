@@ -1,11 +1,12 @@
 extends Spatial
 signal exit_msg_console
+signal send_button_clicked(play_sequence)
 
 var led = preload("res://led.tscn")
 var button = preload("res://music_button.tscn")
 var led_nodes = []
 var buttons = []
-var player_tones = []
+var player_tones = {}
 var play_sequence = []
 
 var number_of_leds = 5
@@ -20,6 +21,7 @@ var hover_yellow = Color(1,1,0)
 var green = Color(0.11,0.38,0.11)
 var yellow = Color(1,1,0)
 
+var string_of_tones = "abcdefg"
 var signals = [
 	preload("res://assets/sounds/communication/send/A_medium.wav"),
 	preload("res://assets/sounds/communication/send/B_medium.wav"),
@@ -40,7 +42,7 @@ func _ready():
 	render_leds()
 	clear_leds()
 	init_signals()
-	init_play_button()
+	init_play_and_send_button()
 
 func init_signals():
 	timer = Timer.new()
@@ -50,19 +52,31 @@ func init_signals():
 	var i = 0
 	for tone in tones:
 		tone.stream = signals[i]
-		player_tones.append(tone)
+		player_tones[string_of_tones[i]] = tone
 		i += 1
 	
-func init_play_button():
+func init_play_and_send_button():
 	var play_button = $play_button
+	var send_button = $send_button
 	play_button.connect("music_button_clicked", self, "_on_play_button_clicked")
+	send_button.connect("music_button_clicked", self, "_on_send_button_clicked")
 	
-func _on_play_button_clicked(id):
+func _on_send_button_clicked(id):
+	var tone_sequence = map_digit_to_tones(play_sequence)
+	emit_signal("send_button_clicked", tone_sequence)
+
+func map_digit_to_tones(play_sequence):
+	var tone_sequence = ""
 	for id in play_sequence:
-		player_tones[id].play()
+		tone_sequence += string_of_tones[id]
+	return tone_sequence
+
+func _on_play_button_clicked(id):
+	var tone_sequence = map_digit_to_tones(play_sequence)
+	for tone in tone_sequence:
+		player_tones[tone].play()
 		timer.start()
 		yield(timer, "timeout")
-	
 	
 func render_leds():
 	var origin_pos_led = $LED.transform.origin
