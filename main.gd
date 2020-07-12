@@ -15,7 +15,6 @@ func _ready():
 	goto_splashscreen()
 	Multiplayer.connect("sync_done", self, "_on_sync")
 	Multiplayer.connect("warp_done", self, "_on_warp_done")
-	Multiplayer.warp(10, 15)
 	
 	
 func _on_sync():
