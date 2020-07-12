@@ -9,6 +9,7 @@ var collectibles = {
 }
 
 var displayed_items = []
+var deleted_items = []
 
 func display_items(items):
 	for i in items:
@@ -43,7 +44,7 @@ func add_item(id, name):
 	displayed_items.append(id)
 	
 func has_item(id):
-	return displayed_items.has(id)
+	return displayed_items.has(id) || deleted_items.has(id)
 
 func _process(delta):
 	for node in get_children():
@@ -55,4 +56,7 @@ func _process(delta):
 func _on_item_clicked(id):
 	Multiplayer.dispose(id)
 	displayed_items.erase(id)
+	deleted_items.append(id)
 	
+func clear_deleted_items():
+	deleted_items = []

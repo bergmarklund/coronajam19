@@ -152,9 +152,6 @@ func _on_request_completed(result, response_code, headers, body):
 
 	var action = json.result.action
 	
-	# Emits things like "sync_received", "collect_received", "message_received", etc.
-	emit_signal(action + "_received")
-	
 	if action == "join":
 		save_credentials(json.result.user)
 		load_credentials()

@@ -49,6 +49,7 @@ func _on_msg_console_area_clicked():
 func _on_trash_can_area_clicked():
 	if !lock_ship:
 		Multiplayer.collect()
+		$items_library.clear_deleted_items()
 
 
 func _on_nav_console_area_entered(area):

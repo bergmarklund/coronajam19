@@ -18,15 +18,15 @@ func _ready():
 	
 	
 func _on_sync():
-	print("SYNCING")
 	var data = Multiplayer.data
 	if data.size() == 0:
 		return
+	print("SYNCING")	
 	var user = data.user
 	var ship = user.ship
 	var messages = data.messages
 	var items = data.items
-	
+	print(items)
 	update_messages(messages)
 	update_items(items)
 	
