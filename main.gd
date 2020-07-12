@@ -37,6 +37,7 @@ func update_messages(messages):
 		display_message(msg)
 		
 func display_message(message):
+	print("message seend: " + message)
 	var offset_row = row - message.row
 	var offset_col = col - message.col
 	if $current_scene.get_child_count() > 0:
