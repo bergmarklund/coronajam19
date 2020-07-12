@@ -78,3 +78,6 @@ func _on_light_switch_light_switch_clicked():
 func _on_radio_area_clicked():
 	emit_signal("toggle_radio")
 
+func display_items(items):
+	$items_library.display_items(items)
+

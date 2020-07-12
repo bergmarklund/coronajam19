@@ -8,6 +8,9 @@ var collectibles = {
 	"collectible_plant_tree": "res://collectible_scenes/collectible_plant_tree.tscn"
 }
 
+func display_items(items):
+	print("displaying items")
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 

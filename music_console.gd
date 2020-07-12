@@ -21,8 +21,8 @@ var delay_between_tones_in_second = 2.5
 # Colors
 var red = Color(1,0,0)
 var hover_yellow = Color(1,1,0)
-var green = Color(0.11,0.38,0.11)
-var yellow = Color(1,1,0)
+var green = Color(0.11,0.38,0.11, 0.8)
+var yellow = Color(1,1,0, 0.8)
 
 var tone_sequence = []
 var string_of_tones = "abcdefg"
@@ -130,7 +130,7 @@ func _on_music_button_clicked(id):
 			clear_leds()
 		var node_to_active = 1
 		play_sequence.append(id)
-		led_nodes[(led_music_state % 5)][id].change_led_color(yellow)
+		led_nodes[(led_music_state % 5)][id].change_led_color(green, 10)
 		led_music_state += 1
 	
 func render_led(x_pos, z_pos, origin_pos):

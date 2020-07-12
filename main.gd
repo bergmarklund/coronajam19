@@ -25,8 +25,10 @@ func _on_sync():
 	var user = data.user
 	var ship = user.ship
 	var messages = data.messages
+	var items = data.items
 	
 	update_messages(messages)
+	update_items(items)
 	
 	if !first_data_synced:
 		var new_row = int(ship.row)
@@ -34,6 +36,17 @@ func _on_sync():
 		update_ship_position(new_row, new_col)
 		goto_spaceship(0)
 		first_data_synced = true
+	
+func update_items(items):
+	var item_dict = {}
+	for item in items:
+		item_dict[item.id] = item.description
+	display_items(item_dict)
+	
+func display_items(item_dict):
+	for child in $current_scene.get_children():
+		if child.has_method("display_items"):
+			child.display_items(item_dict)
 	
 func update_messages(messages):
 	for msg in messages:

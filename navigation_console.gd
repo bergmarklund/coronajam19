@@ -13,12 +13,11 @@ var button_pressed = false
 var out_of_bounce = false
 
 # Colors
-var green = Color(0.11,0.38,0.11)
-var red = Color(1,0,0)
-var hover_yellow = Color(1,1,0)
+var green = Color(0.11, 0.38, 0.11, 0.2)
+var red = Color(1,0,0,0.5)
+var hover_yellow = Color(1,1,0, 0.5)
 var arrow_grey = Color(0.41, 0.41, 0.41)
 var launch_red = Color(1,0,0)
-
 
 func _input(event):
 	if event is InputEventMouseButton:	
@@ -51,7 +50,7 @@ func render_led(x_pos, z_pos):
 	led_node.set_translation(posistion)
 	self.add_child(led_node)
 	if x_pos == number_of_leds / 2 and z_pos == number_of_leds / 2 :
-		led_node.change_led_color(red)
+		led_node.change_led_color(red, 10)
 	return led_node
 
 func get_led_by_pos(pos_2d):
@@ -69,11 +68,12 @@ func compare_vector_pos(vec1, vec2):
 func led_switch(navigation_led_pos, status):
 	if not compare_vector_pos(center_led_pos, navigation_led_pos):
 		var led_node = get_led_by_pos(navigation_led_pos)
-		led_node.change_led_color(green)
 		if status:
+			led_node.change_led_color(green, 10)
 			led_node.activate_navigation_led()
 		else:
 			led_node.disable_navigation_led()
+			led_node.change_led_color(green)
 
 func lower_button(id):
 	if button_pressed:
