@@ -122,5 +122,5 @@ func _on_launch_button_mouse_exited():
 	change_arrow_color(get_child(4), red)
 
 func _on_launch_button_area_clicked():
-	emit_signal("warp_to_pos", center_led_pos.x - navigation_led_pos.x, center_led_pos.y - navigation_led_pos.y)
+	emit_signal("warp_to_pos", center_led_pos.y - navigation_led_pos.y, navigation_led_pos.x - center_led_pos.x)
 	emit_signal("exit_nav_console")
