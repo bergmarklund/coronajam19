@@ -1,6 +1,7 @@
 extends Spatial
 signal exit_msg_console
 signal send_button_clicked(play_sequence)
+signal done_playing_sequence
 
 var led = preload("res://led.tscn")
 var button = preload("res://music_button.tscn")
@@ -8,12 +9,14 @@ var led_nodes = []
 var buttons = []
 var player_tones = {}
 var play_sequence = []
+var console_locked = false
+var exit_on_finish = false
 
 var number_of_leds = 5
 var led_music_state = 0
 var time = 0
 var timer = null
-var delay_between_tones_in_second = 5
+var delay_between_tones_in_second = 2
 
 # Colors
 var red = Color(1,0,0)
@@ -21,6 +24,7 @@ var hover_yellow = Color(1,1,0)
 var green = Color(0.11,0.38,0.11)
 var yellow = Color(1,1,0)
 
+var tone_sequence = []
 var string_of_tones = "abcdefg"
 var signals = [
 	preload("res://assets/sounds/communication/send/A_medium.wav"),
@@ -33,6 +37,8 @@ var signals = [
 ]
 
 func _input(event):
+	if console_locked:
+		return
 	if event is InputEventMouseButton:	
 		if(event.pressed && event.button_index == BUTTON_RIGHT):
 			emit_signal("exit_msg_console")
@@ -43,6 +49,7 @@ func _ready():
 	clear_leds()
 	init_signals()
 	init_play_and_send_button()
+	self.connect("done_playing_sequence", self, "_on_done_playing_sequence")
 
 func init_signals():
 	timer = Timer.new()
@@ -60,10 +67,20 @@ func init_play_and_send_button():
 	var send_button = $send_button
 	play_button.connect("music_button_clicked", self, "_on_play_button_clicked")
 	send_button.connect("music_button_clicked", self, "_on_send_button_clicked")
+		
+func _on_send_button_clicked(_id):
+	if console_locked:
+		return
+	var tones = map_digit_to_tones(play_sequence)
+	emit_signal("send_button_clicked", tones)
+	console_locked = true
+	exit_on_finish = true
+	play_tones()
 	
-func _on_send_button_clicked(id):
-	var tone_sequence = map_digit_to_tones(play_sequence)
-	emit_signal("send_button_clicked", tone_sequence)
+func _on_done_playing_sequence():
+	if exit_on_finish:
+		emit_signal("exit_msg_console")
+	console_locked = false
 
 func map_digit_to_tones(play_sequence):
 	var tone_sequence = ""
@@ -71,12 +88,21 @@ func map_digit_to_tones(play_sequence):
 		tone_sequence += string_of_tones[id]
 	return tone_sequence
 
-func _on_play_button_clicked(id):
-	var tone_sequence = map_digit_to_tones(play_sequence)
+func _on_play_button_clicked(_id):
+	if !console_locked:
+		console_locked = true
+		play_tones()
+		
+func play_tones():
+	if len(tone_sequence) > 0:
+		return
+	tone_sequence = map_digit_to_tones(play_sequence)
 	for tone in tone_sequence:
 		player_tones[tone].play()
 		timer.start()
 		yield(timer, "timeout")
+	tone_sequence = []
+	emit_signal("done_playing_sequence")
 	
 func render_leds():
 	var origin_pos_led = $LED.transform.origin
@@ -99,12 +125,13 @@ func render_button(id, origin_pos):
 	self.add_child(button_node)
 	
 func _on_music_button_clicked(id):
-	if led_music_state % 5 == 0:
-		clear_leds()
-	var node_to_active = 1
-	play_sequence.append(id)
-	led_nodes[(led_music_state % 5)][id].change_led_color(led_nodes[(led_music_state % 5)][id], yellow)
-	led_music_state += 1
+	if !console_locked:
+		if led_music_state % 5 == 0:
+			clear_leds()
+		var node_to_active = 1
+		play_sequence.append(id)
+		led_nodes[(led_music_state % 5)][id].change_led_color(led_nodes[(led_music_state % 5)][id], yellow)
+		led_music_state += 1
 	
 func render_led(x_pos, z_pos, origin_pos):
 	var posistion = Vector3(origin_pos.x + x_pos * 6, 0.25, origin_pos.z + z_pos * 4)

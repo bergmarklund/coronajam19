@@ -22,9 +22,10 @@ func _on_sync():
 	var user = data.user
 	var ship = user.ship
 	var messages = data.messages
-	
-	if check_if_moved(ship.row, ship.col):
-		update_ship_position(ship.row, ship.col)
+	var new_row = int(ship.row)
+	var new_col = int(ship.col)
+	if check_if_moved(new_row, new_col):
+		update_ship_position(new_row, new_col)
 	
 	update_messages(messages)
 	
@@ -60,7 +61,7 @@ func update_rng_seed():
 	print("new rng_seed: " + str(rng_seed))
 	
 func check_if_moved(new_row, new_col):
-	return new_row != col || new_col != row 
+	return new_row != row || new_col != col
 
 func clear_current_scene():
 	if $current_scene.get_child_count() > 0:
@@ -94,11 +95,11 @@ func goto_msg_console():
 	var msg_console = msgconsole_scene.instance()
 	msg_console.connect("exit_msg_console", self, "_on_exit_msg_console")
 	msg_console.connect("send_button_clicked", self, "_on_send_button_clicked")
-	# msg_console.tone_sequence = tone_sequence
 	$current_scene.add_child(msg_console)
 
 func _on_send_button_clicked(tone_sequence):
-	print("MAIN TONE SEQUENCE: " + tone_sequence)
+	Multiplayer.message(tone_sequence)
+	
 
 func _on_display_nav_console():
 	goto_nav_console()
@@ -111,9 +112,6 @@ func _on_display_msg_console():
 	
 func _on_exit_msg_console():
 	goto_spaceship(2)
-
-func _on_send_message(message):
-	Multiplayer.message(message)
 
 func _on_warp_to_position(offset_row, offset_col):
 	if offset_row == 0 && offset_col == 0:
