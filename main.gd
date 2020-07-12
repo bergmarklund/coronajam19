@@ -15,7 +15,7 @@ func _ready():
 	goto_splashscreen()
 	Multiplayer.connect("sync_done", self, "_on_sync")
 	Multiplayer.connect("warp_done", self, "_on_warp_done")
-	
+	Multiplayer.sync()
 	
 func _on_sync():
 	var data = Multiplayer.data
@@ -26,7 +26,7 @@ func _on_sync():
 	var ship = user.ship
 	var messages = data.messages
 	var items = data.items
-	print(items)
+	
 	update_messages(messages)
 	update_items(items)
 	
@@ -36,6 +36,9 @@ func _on_sync():
 		update_ship_position(new_row, new_col)
 		goto_spaceship(0)
 		first_data_synced = true
+		
+	update_messages(messages)
+	update_items(items)
 	
 func update_items(items):
 	var item_dict = {}
