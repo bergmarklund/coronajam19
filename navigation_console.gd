@@ -92,14 +92,12 @@ func lower_button(id):
 func display_message(offset_row, offset_col): 
 	var led_node = led_nodes[center_led_pos.x - offset_col][center_led_pos.y - offset_row]
 	led_node.activate_nearby_ship_led_blinking()
-	
-func out_of_bounce(navigation_led_pos):
-	var in_bounce = abs(navigation_led_pos.x - 14) < 14 && abs(navigation_led_pos.y - 14) < 14
-	return !in_bounce
+
 
 ### Hover and click functions ###
 func _on_arrow_up_clicked():
-	if out_of_bounce(navigation_led_pos):
+	print(navigation_led_pos)
+	if navigation_led_pos.y <= 0:
 		return
 	lower_button(2)
 	$arrow_up/AudioStreamPlayer.play()
@@ -108,7 +106,7 @@ func _on_arrow_up_clicked():
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_right_area_clicked():
-	if out_of_bounce(navigation_led_pos):
+	if navigation_led_pos.x >= number_of_leds-1:
 		return
 	lower_button(0)
 	$arrow_right/AudioStreamPlayer.play()
@@ -117,7 +115,7 @@ func _on_arrow_right_area_clicked():
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_left_area_clicked():
-	if out_of_bounce(navigation_led_pos):
+	if navigation_led_pos.x <= 0:
 		return
 	lower_button(1)
 	$arrow_left/AudioStreamPlayer.play()
@@ -126,7 +124,7 @@ func _on_arrow_left_area_clicked():
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_down_area_clicked():
-	if out_of_bounce(navigation_led_pos):
+	if navigation_led_pos.y >= number_of_leds-1:
 		return
 	lower_button(3)
 	$arrow_down/AudioStreamPlayer.play()
