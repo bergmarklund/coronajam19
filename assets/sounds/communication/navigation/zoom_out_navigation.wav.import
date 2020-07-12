@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/zoom_out_navigation.wav-9887857e2213584704aed4ee241579b1.sample"
+
+[deps]
+
+source_file="res://assets/sounds/communication/navigation/zoom_out_navigation.wav"
+dest_files=[ "res://.import/zoom_out_navigation.wav-9887857e2213584704aed4ee241579b1.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

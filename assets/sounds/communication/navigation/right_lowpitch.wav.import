@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/right_lowpitch.wav-ff0b7d659e26ac00eafefd2960f701e3.sample"
+
+[deps]
+
+source_file="res://assets/sounds/communication/navigation/right_lowpitch.wav"
+dest_files=[ "res://.import/right_lowpitch.wav-ff0b7d659e26ac00eafefd2960f701e3.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
