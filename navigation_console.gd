@@ -14,7 +14,7 @@ var out_of_bounce = false
 
 # Colors
 var green = Color(0.11, 0.38, 0.11, 0.2)
-var red = Color(1,0,0,0.5)
+var red = Color(1,0,0,0.2)
 var hover_yellow = Color(1,1,0, 0.5)
 var arrow_grey = Color(0.41, 0.41, 0.41)
 var launch_red = Color(1,0,0)
@@ -50,7 +50,7 @@ func render_led(x_pos, z_pos):
 	led_node.set_translation(posistion)
 	self.add_child(led_node)
 	if x_pos == number_of_leds / 2 and z_pos == number_of_leds / 2 :
-		led_node.change_led_color(red, 10)
+		led_node.change_led_color(red, 3)
 	return led_node
 
 func get_led_by_pos(pos_2d):
@@ -90,8 +90,10 @@ func lower_button(id):
 	button_pressed = false
 
 func display_message(offset_row, offset_col): 
+	if abs(offset_row) > 14 or abs(offset_col) > 14:
+		return
 	var led_node = led_nodes[center_led_pos.y + offset_row][center_led_pos.x + offset_row]
-	led_node.activate_nearby_ship_led_blinking()
+	led_node.activate_nearby_ship_led_blinking(true)
 
 ### Hover and click functions ###
 func _on_arrow_up_clicked():

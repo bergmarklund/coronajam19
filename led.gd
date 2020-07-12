@@ -5,7 +5,7 @@ var green = Color(0.11, 0.38, 0.11, 0.2)
 var nav_green = Color(0.2,0.4,0.2)
 var yellow = Color(1,1,0)
 var blue = Color(0,0,1)
-var red = Color(1,0,0)
+var red = Color(1,0,0,0.2)
 
 var blinking_speed_in_seconds_nav = 0.25
 var blinking_speed_in_seconds_disc = 0.5
@@ -13,6 +13,7 @@ var navigation_led_color_state = 0
 var nav_time = 0
 var discover_time = 0
 
+var blink_red = false
 var navigation_led_blinking = false
 var nearby_ship_led_blinking = false
 
@@ -48,8 +49,9 @@ func disable_navigation_led():
 func disable_nearby_ship_led_blinking():
 	nearby_ship_led_blinking = false
 
-func activate_nearby_ship_led_blinking():
+func activate_nearby_ship_led_blinking(red=false):
 	nearby_ship_led_blinking = true
+	blink_red = red
 
 func _process(_delta):
 	nav_time += _delta
@@ -58,7 +60,10 @@ func _process(_delta):
 		blinking_navigation_led(green)
 		nav_time = 0
 	if nearby_ship_led_blinking and discover_time > blinking_speed_in_seconds_disc:
-		blinking_navigation_led(green)
+		if red:
+			blinking_navigation_led(red)
+		else:
+			blinking_navigation_led(green)
 		discover_time = 0
 	
 		
