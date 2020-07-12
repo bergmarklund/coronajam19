@@ -130,7 +130,9 @@ func _on_warp_to_position(offset_row, offset_col):
 	
 # used as time! 
 func get_warp_distance(offset_row, offset_col):
-	return offset_row + offset_col
+	var dist = offset_row + offset_col
+	dist = clamp(dist, 8, 20)
+	return dist
 
 func _on_warp_done():
 	Multiplayer.sync()

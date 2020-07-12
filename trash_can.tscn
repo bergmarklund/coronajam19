@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://clickable_area.gd" type="Script" id=1]
+[ext_resource path="res://assets/spaceship_interior/spaceship_trashcan.glb" type="PackedScene" id=2]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.5, 0.8, 0.5 )
+
+[node name="trash_can" type="Area"]
+script = ExtResource( 1 )
+area_path = NodePath(".")
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.114641, 0.832594, -0.088 )
+shape = SubResource( 1 )
+
+[node name="spaceship_trashcan" parent="." instance=ExtResource( 2 )]
+
+[node name="SpotLight" type="SpotLight" parent="."]
+transform = Transform( 0.458401, 0, -0.888745, 0, 1, 0, 0.888745, 0, 0.458401, -0.52287, 0.703954, 0.309387 )
+spot_range = 0.5
+spot_angle = 28.4
