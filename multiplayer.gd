@@ -24,7 +24,7 @@ var token = ""
 var http_request = null
 var timer = 0
 var sync_interval_sec = 5
-var silent_print = false
+var silent_print = true
 
 #######################################################
 #          Methods to acesss API endpoits             #

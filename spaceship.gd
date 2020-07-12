@@ -10,14 +10,13 @@ var lock_ship = false
 func _ready():
 	var start = $camera_origin
 	if camera_start == 1:
-		start = $camera_console_nav
+		start = $control_panel_nav/camera_position
 		can_go_to_panels = false
 	elif camera_start == 2:
-		start = $camera_console_msg
+		start = $control_panel_msg/camera_position
 		can_go_to_panels = false
 
-	$InterpolatedCamera.translation = start.translation
-	$InterpolatedCamera.rotation = start.rotation
+	$InterpolatedCamera.transform = start.global_transform
 	$InterpolatedCamera.enabled = true
 	$background.connect("warp_done", self, "_on_warp_done")
 	reload_background()
@@ -39,12 +38,12 @@ func _input(event):
 
 func _on_nav_console_area_clicked():
 	if !lock_ship:
-		$InterpolatedCamera.set_target($camera_console_nav)
+		$InterpolatedCamera.set_target($control_panel_nav/camera_position)
 
 
 func _on_msg_console_area_clicked():
 	if !lock_ship:
-		$InterpolatedCamera.set_target($camera_console_msg)
+		$InterpolatedCamera.set_target($control_panel_msg/camera_position)
 		
 func _on_item_collect_area_clicked():
 	Multiplayer.collect()
