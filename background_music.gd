@@ -79,9 +79,9 @@ func play_random_sound():
 	$random_stream.set_stream(sound)
 	$random_stream.play()
 	
-func add_message(message):
+func add_message(_message):
 	var msg = []
-	for c in message:
+	for c in _message:
 		if recieve.has(c):
 			var tone = recieve[c]
 			msg.append(tone)

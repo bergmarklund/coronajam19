@@ -147,7 +147,7 @@ class InteractionController extends Controller
             $item->ship_id = null;
         } else {
             $anotherShip = $neighbors->random();
-            $item->ship()->associate($anotherShip);
+            $item->ship_id = $anotherShip->id;
         }
 
         $item->save();

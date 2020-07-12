@@ -130,7 +130,6 @@ func delete_children(node):
 func draw_stars():
 	clear_stars()
 	var positions = $stars.get_children()
-	var idx = 0
 	for pos in positions:
 		for i in range(0, 50):
 			for j in range(0, 50):
@@ -144,7 +143,6 @@ func draw_stars():
 					if reload_scale_back:
 						star.scale.x += 100
 					pos.add_child(star)
-		idx += 1
 	
 func clear_stars():
 	var positions = $stars.get_children()
@@ -178,8 +176,8 @@ func render_warp():
 	warp_sun()
 	
 func warp_planets():
-	var planets = get_all_planets()
-	for planet in planets:
+	var _planets = get_all_planets()
+	for planet in _planets:
 		var scale_vector = Vector3(1.2, 1, 1)
 		planet.transform = planet.transform.scaled(scale_vector)
 		var move_vector = Vector3(-1, -0.1, 0)
@@ -187,21 +185,21 @@ func warp_planets():
 		
 	
 func warp_stars():
-	var stars = get_all_stars()
-	for star in stars:
+	var _stars = get_all_stars()
+	for star in _stars:
 		star.scale.x += 1
 		star.translation.x += 1
 	
 func get_all_stars():
-	var stars = []
+	var _stars = []
 	var positions = $stars.get_children()
 	for pos in positions:
-		stars += pos.get_children()
-	return stars
+		_stars += pos.get_children()
+	return _stars
 
 func get_all_planets():
-	var planets = []
+	var _planets = []
 	var positions = $planets.get_children()
 	for pos in positions:
-		planets += pos.get_children()
-	return planets
+		_planets += pos.get_children()
+	return _planets
