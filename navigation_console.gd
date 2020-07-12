@@ -8,6 +8,7 @@ var led_nodes = []
 var number_of_leds = 29
 var center_led_pos = Vector2((number_of_leds-1) / 2, (number_of_leds-1) / 2)
 var navigation_led_pos = center_led_pos
+var timer = null
 
 # Colors
 var green = Color(0.11,0.38,0.11)
@@ -32,6 +33,9 @@ func fix_button_colors():
 		change_arrow_color(get_child(i), arrow_grey)
 
 func render_grid():
+	timer = Timer.new()
+	self.add_child(timer)
+	timer.set_wait_time(0.25)
 	for i in range(number_of_leds):
 		var led_array = []
 		for j in range(number_of_leds):
@@ -69,27 +73,40 @@ func led_switch(navigation_led_pos, status):
 		else:
 			led_node.disable_navigation_led()
 
+func lower_button(id):
+	var button = get_child(id)
+	var pos = button.transform.origin
+	pos.y -= 0.2
+	button.set_translation(pos)
+	timer.start()
+	yield(timer, "timeout")
+	pos.y += 0.2
+	button.set_translation(pos)
 
 ### Hover and click functions ###
 func _on_arrow_up_clicked():
+	lower_button(2)
 	$arrow_up/AudioStreamPlayer.play()
 	led_switch(navigation_led_pos, false)
 	navigation_led_pos.y -= 1
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_right_area_clicked():
+	lower_button(0)
 	$arrow_right/AudioStreamPlayer.play()
 	led_switch(navigation_led_pos, false)
 	navigation_led_pos.x += 1
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_left_area_clicked():
+	lower_button(1)
 	$arrow_left/AudioStreamPlayer.play()
 	led_switch(navigation_led_pos, false)
 	navigation_led_pos.x -= 1
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_down_area_clicked():
+	lower_button(3)
 	$arrow_down/AudioStreamPlayer.play()
 	led_switch(navigation_led_pos, false)
 	navigation_led_pos.y += 1
@@ -126,5 +143,6 @@ func _on_launch_button_mouse_exited():
 	change_arrow_color(get_child(4), red)
 
 func _on_launch_button_area_clicked():
+	lower_button(4)
 	emit_signal("warp_to_pos", center_led_pos.y - navigation_led_pos.y, navigation_led_pos.x - center_led_pos.x)
 	emit_signal("exit_nav_console")
