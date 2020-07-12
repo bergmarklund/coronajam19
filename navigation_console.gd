@@ -93,7 +93,8 @@ func display_message(offset_row, offset_col):
 	if abs(offset_row) > 14 or abs(offset_col) > 14:
 		return
 	var led_node = led_nodes[center_led_pos.y + offset_row][center_led_pos.x + offset_row]
-	led_node.activate_nearby_ship_led_blinking(true)
+	if offset_col == 0 and offset_row == 0:
+		led_node.activate_nearby_ship_led_blinking(true)
 
 ### Hover and click functions ###
 func _on_arrow_up_clicked():

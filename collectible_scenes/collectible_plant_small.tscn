@@ -1,8 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/Collectibles/collectible_plant_small.glb" type="PackedScene" id=1]
+[ext_resource path="res://collectable.gd" type="Script" id=2]
 
-[node name="Spatial" type="Spatial"]
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.3, 0.4, 0.3 )
+
+[node name="Spatial" type="Area"]
+script = ExtResource( 2 )
+area_path = NodePath(".")
 
 [node name="collectible_plant_small" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5129e-05, 0.37685, 0.00900757 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.385546, -0.0858027 )
+shape = SubResource( 1 )

@@ -180,8 +180,11 @@ func render_warp():
 func warp_planets():
 	var planets = get_all_planets()
 	for planet in planets:
-		planet.scale.x += 0.2
-		planet.translation.x -= 0.25
+		var scale_vector = Vector3(1.2, 1, 1)
+		planet.transform = planet.transform.scaled(scale_vector)
+		var move_vector = Vector3(-1, -0.1, 0)
+		planet.transform = planet.transform.translated(move_vector)
+		
 	
 func warp_stars():
 	var stars = get_all_stars()

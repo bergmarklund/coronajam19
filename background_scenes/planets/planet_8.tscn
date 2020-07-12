@@ -5,3 +5,4 @@
 [node name="Spatial" type="Spatial"]
 
 [node name="planet_round_ring_teal" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.317658, 0 )

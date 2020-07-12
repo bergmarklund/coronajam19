@@ -66,7 +66,7 @@ transform = Transform( -1.62921e-07, 0, 1, 0, 1, 0, -1, 0, -1.62921e-07, 1.95545
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.04444, -1.02138e-06, -4.16856 )
 
 [node name="items_library" parent="." instance=ExtResource( 9 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0591242, -0.223129, -3.24189 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.89468, -0.223129, -3.24189 )
 [connection signal="light_switch_clicked" from="light_switch" to="." method="_on_light_switch_light_switch_clicked"]
 [connection signal="area_clicked" from="control_panel_nav" to="." method="_on_nav_console_area_clicked"]
 [connection signal="area_entered" from="control_panel_nav" to="." method="_on_nav_console_area_entered"]

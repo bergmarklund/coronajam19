@@ -16,7 +16,7 @@ var number_of_leds = 5
 var led_music_state = 0
 var time = 0
 var timer = null
-var delay_between_tones_in_second = 2.5
+var delay_between_tones_in_second = 1.5
 
 # Colors
 var red = Color(1,0,0)
@@ -25,16 +25,16 @@ var green = Color(0.11,0.38,0.11, 0.8)
 var yellow = Color(1,1,0, 0.8)
 
 var tone_sequence = []
-var string_of_tones = "abcdefg"
-var signals = [
-	preload("res://assets/sounds/communication/send/A_medium.wav"),
-	preload("res://assets/sounds/communication/send/B_medium.wav"),
-	preload("res://assets/sounds/communication/send/C_medium.wav"),
-	preload("res://assets/sounds/communication/send/D_medium.wav"),
-	preload("res://assets/sounds/communication/send/E_medium.wav"),
-	preload("res://assets/sounds/communication/send/F_medium.wav"),
-	preload("res://assets/sounds/communication/send/G_medium.wav")
-]
+var string_of_tones = "cbagfed"
+var signals = { 
+	"c" : preload("res://assets/sounds/communication/send/C_medium.wav"),
+	"b" : preload("res://assets/sounds/communication/send/B_medium.wav"),
+	"a" : preload("res://assets/sounds/communication/send/A_medium.wav"),
+	"g" : preload("res://assets/sounds/communication/send/G_medium.wav"),
+	"f" : preload("res://assets/sounds/communication/send/F_medium.wav"),
+	"e" : preload("res://assets/sounds/communication/send/E_medium.wav"),
+	"d" : preload("res://assets/sounds/communication/send/D_medium.wav")
+	}
 
 func _input(event):
 	if console_locked:
@@ -58,7 +58,6 @@ func init_signals():
 	var tones = $SendSignals.get_children()
 	var i = 0
 	for tone in tones:
-		tone.stream = signals[i]
 		player_tones[string_of_tones[i]] = tone
 		i += 1
 	
@@ -97,11 +96,17 @@ func play_tones():
 	if len(tone_sequence) > 0:
 		return
 	tone_sequence = map_digit_to_tones(play_sequence)
+	var i = 0
 	for tone in tone_sequence:
+		led_nodes[i][play_sequence[i]].activate_navigation_led()
+		player_tones[tone].stream = signals[tone]
 		player_tones[tone].play()
 		timer.start()
 		yield(timer, "timeout")
+		i += 1
 	tone_sequence = []
+	for j in range(5):
+		led_nodes[j][play_sequence[j]].disable_navigation_led()
 	emit_signal("done_playing_sequence")
 	
 func render_leds():
