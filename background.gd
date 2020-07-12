@@ -1,4 +1,5 @@
 extends Spatial
+signal warp_done
 
 
 var planets = [
@@ -31,17 +32,23 @@ var rng = null
 var initial_sun_rotation = null
 var planet_rotation_max = [0.002, 0.009, 0.02]
 var planet_rotations = [0.0, 0.0, 0.0]
-# Called when the node enters the scene tree for the first time.
+
+var warping = false 
+
 func _ready():
 	initial_sun_rotation = $DirectionalLight.rotation
 
 func reload(rng_seed):
-	rng = RandomNumberGenerator.new()
-	rng.set_seed(rng_seed)
-	draw()
+	if !warping:
+		rng = RandomNumberGenerator.new()
+		rng.set_seed(rng_seed)
+		draw()
 	
 func _process(_delta):
-	rotate_planets()
+	if warping:
+		print("do test")
+	else:
+		rotate_planets()
 
 func rotate_planets():
 	var positions = $planets.get_children()
@@ -113,3 +120,25 @@ func clear_stars():
 	var positions = $stars.get_children()
 	for pos in positions:
 		delete_children(pos)
+
+func do_warp(distance):
+	var stars = get_all_stars()
+	var planets = get_all_planets()
+	warp_stars(stars)
+	
+func warp_stars(stars):
+	pass
+	
+func get_all_stars():
+	var stars = []
+	var positions = $stars.get_children()
+	for pos in positions:
+		stars += pos.get_children()
+	return stars
+
+func get_all_planets():
+	var planets = []
+	var positions = $planets.get_children()
+	for pos in positions:
+		planets += pos.get_children()
+	return planets

@@ -1,4 +1,5 @@
 extends Node
+signal sync_done
 
 var API_BASE_URL = "http://coronajam19.app.fernandobevilacqua.com/api"
 var CREDENTIALS_FILE_PATH = "user://credentials-v202007111943.json"
@@ -45,7 +46,8 @@ func message(content):
 	fetch_with_credentials(API_BASE_URL + "/message/" + content.percent_encode())
 	
 func sync():
-	fetch_with_credentials(API_BASE_URL + "/sync")	
+	fetch_with_credentials(API_BASE_URL + "/sync")
+	emit_signal("sync_done")
 	
 func test():
 	fetch(API_BASE_URL + "/test")

@@ -3,16 +3,64 @@ extends Node
 var spaceship_scene = preload("res://spaceship.tscn")
 var navconsole_scene = preload("res://navigation_console.tscn")
 var msgconsole_scene = preload("res://music_console.tscn")
+var played_messages = []
+
 
 var rng_seed = 1
+var col = null
+var row = null
 
 func _ready():
-	var rng = RandomNumberGenerator.new()
-	rng.randomize()
-	rng_seed = rng.randi()
-	print(rng_seed)
 	goto_spaceship(0)
+	Multiplayer.connect("sync_done", self, "_on_sync")
+	
+func _on_sync():
+	print("SYNCING")
+	var data = Multiplayer.data
+	if data.size() == 0:
+		return
+	var user = data.user
+	var ship = user.ship
+	var messages = data.messages
+	
+	if check_if_moved(ship.row, ship.col):
+		update_ship_position(ship.row, ship.col)
+	
+	update_messages(messages)
+	
+func update_messages(messages):
+	for msg in messages:
+		if !already_played_message(msg.id):
+			play_message(msg)
+		display_message(msg)
+		
+func display_message(message):
+	var offset_row = row - message.row
+	var offset_col = col - message.col
+	if $current_scene.get_child_count() > 0:
+		var child = $current_scene.get_children()[0]
+		if child.has_method("display_message"):
+			child.display_message(offset_row, offset_col)
+			
+func play_message(msg):
+	played_messages.append(msg.id)
+	$background_music.add_message(msg.content)
+	
+func already_played_message(msg_id):
+	return played_messages.has(msg_id)
+	
+func update_ship_position(new_row, new_col):
+	row = int(new_row)
+	col = int(new_col)
+	update_rng_seed()
+	reload_ship_background()
 
+func update_rng_seed():
+	rng_seed = row ^ col
+	print("new rng_seed: " + str(rng_seed))
+	
+func check_if_moved(new_row, new_col):
+	return new_row != col || new_col != row 
 
 func clear_current_scene():
 	if $current_scene.get_child_count() > 0:
@@ -20,11 +68,11 @@ func clear_current_scene():
 		for child in children:
 			child.queue_free()
 			
-func reload():
+func reload_ship_background():
 	if $current_scene.get_child_count() > 0:
 		var child = $current_scene.get_children()[0]
-		if child.has_method("reload"):
-			child.reload(rng_seed)
+		if child.has_method("reload_background"):
+			child.reload_background(rng_seed)
 		
 func goto_spaceship(camera_start):
 	clear_current_scene()
@@ -60,5 +108,24 @@ func _on_display_msg_console():
 func _on_exit_msg_console():
 	goto_spaceship(2)
 
+func _on_send_message(message):
+	Multiplayer.message(message)
 
+func _on_warp_to_position(offset_row, offset_col):
+	if offset_row == 0 && offset_col == 0:
+		return
+	var global_row = row + offset_row
+	var global_col = col + offset_col
+	Multiplayer.warp(global_row, global_col)
+	var dist = abs(offset_row) + abs(offset_col)
+	do_warp_sequence(dist)
 
+func do_warp_sequence(distance):
+	goto_spaceship(1)
+	warp_spaceship(distance)
+
+func warp_spaceship(distance):
+	if $current_scene.get_child_count() > 0:
+		var child = $current_scene.get_children()[0]
+		if child.has_method("do_warp"):
+			child.do_warp(distance)

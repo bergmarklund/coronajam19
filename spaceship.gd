@@ -6,6 +6,8 @@ var camera_start = 0
 var can_go_to_panels = true
 var rng_seed = 0
 
+var lock_ship = false
+
 func _ready():
 	var start = $camera_origin
 	if camera_start == 1:
@@ -18,27 +20,30 @@ func _ready():
 	$InterpolatedCamera.translation = start.translation
 	$InterpolatedCamera.rotation = start.rotation
 	$InterpolatedCamera.enabled = true
-	reload(rng_seed)
+	reload_background(rng_seed)
 
-func reload(_rng_seed):
+func reload_background(_rng_seed):
 	rng_seed = _rng_seed
-	$background.reload(rng_seed)
+	if !lock_ship:
+		$background.reload(rng_seed)
+	
+func do_warp(distance):
+	lock_ship = true 
+	$background.do_warp(distance)
 
 func _input(event):
 	if event is InputEventMouseButton:	
-		if(event.pressed && event.button_index == BUTTON_RIGHT):
+		if(event.pressed && event.button_index == BUTTON_RIGHT && !lock_ship):
 			$InterpolatedCamera.set_target($camera_origin)
 
 func _on_nav_console_area_clicked():
-	$InterpolatedCamera.set_target($camera_console_nav)
+	if !lock_ship:
+		$InterpolatedCamera.set_target($camera_console_nav)
 
 
 func _on_msg_console_area_clicked():
-	$InterpolatedCamera.set_target($camera_console_msg)
-
-
-func _on_nav_console_body_entered(body):
-	print(body)
+	if !lock_ship:
+		$InterpolatedCamera.set_target($camera_console_msg)
 
 
 func _on_nav_console_area_entered(area):
