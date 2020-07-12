@@ -49,6 +49,9 @@ func _on_nav_console_area_clicked():
 func _on_msg_console_area_clicked():
 	if !lock_ship:
 		$InterpolatedCamera.set_target($camera_console_msg)
+		
+func _on_item_collect_area_clicked():
+	Multiplayer.collect()
 
 
 func _on_nav_console_area_entered(area):
