@@ -106,13 +106,13 @@ class InteractionController extends Controller
     protected function findNeighborShips($ship)
     {
         $filter = [
-            ['ship_id', '!=', $ship->id], // exclude own ship
+            ['id', '!=', $ship->id], // exclude own ship
             ['row', '=', $ship->row],
             ['col', '=', $ship->col],
         ];
 
-        $neighbours = Ship::where($filter)->take(30)->get();
-        return $neighbours;
+        $neighbors = Ship::where($filter)->take(30)->get();
+        return $neighbors;
     }
 
     protected function findItemsFloatingInSpace($ship)
@@ -132,17 +132,21 @@ class InteractionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function dispose($item, User $user, $token)
+    public function dispose(Item $item, User $user, $token)
     {
         $userShip = $user->ship;
         $neighbors = $this->findNeighborShips($userShip);
+
+        // Position item in space before disposal
+        $item->row = $userShip->row;
+        $item->col = $userShip->col;
 
         if(count($neighbors) == 0) {
             // No neighbors (all alone indeed). As a consequence,
             // we dispose the item to outer space.
             $item->ship_id = null;
         } else {
-            $anotherShip = Arr::random($neighbors, 1);
+            $anotherShip = $neighbors->random();
             $item->ship()->associate($anotherShip);
         }
 
@@ -150,7 +154,8 @@ class InteractionController extends Controller
 
         return [
             'action' => 'dispose',
-            'item' => $item
+            'item' => $item,
+            'was_collected' => $item->ship_id != null
         ];
     }
 
