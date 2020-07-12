@@ -123,4 +123,3 @@ func _on_launch_button_mouse_exited():
 
 func _on_launch_button_area_clicked():
 	emit_signal("warp_to_pos", center_led_pos.y - navigation_led_pos.y, navigation_led_pos.x - center_led_pos.x)
-	emit_signal("exit_nav_console")

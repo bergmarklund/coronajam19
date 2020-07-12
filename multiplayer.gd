@@ -1,5 +1,6 @@
 extends Node
 signal sync_done
+signal warp_done
 
 var API_BASE_URL = "http://coronajam19.app.fernandobevilacqua.com/api"
 var CREDENTIALS_FILE_PATH = "user://credentials-v202007120948.json"
@@ -23,6 +24,7 @@ var token = ""
 var http_request = null
 var timer = 0
 var sync_interval_sec = 5
+var silent_print = false
 
 #######################################################
 #          Methods to acesss API endpoits             #
@@ -34,13 +36,15 @@ func join():
 func move(direction):
 	var valid_direction = direction == "up" || direction == "down" || direction == "left" || direction == "right"
 	if !valid_direction:
-		printerr("[Multiplayer] invalid direction for move: " + direction + ". Use either up, down, left or right.")
+		if !silent_print:
+			printerr("[Multiplayer] invalid direction for move: " + direction + ". Use either up, down, left or right.")
 		return
 		
 	fetch_with_credentials(API_BASE_URL + "/move/" + direction)
 	
 func warp(row, col):
 	fetch_with_credentials(API_BASE_URL + "/warp/" + String(row) + "/" + String(col))
+	emit_signal("warp_done")
 	
 func message(content):
 	fetch_with_credentials(API_BASE_URL + "/message/" + content.percent_encode())
@@ -72,7 +76,8 @@ func _ready():
 func _process(delta):
 	timer += delta
 	if timer > sync_interval_sec:
-		print("[Multiplayer] requesting sync")
+		if !silent_print:
+			print("[Multiplayer] requesting sync")
 		timer = 0
 		sync()
 
@@ -93,7 +98,8 @@ func save_credentials(content):
 	credentials_file.open(CREDENTIALS_FILE_PATH, File.WRITE)
 	credentials_file.store_string(credentials)
 	
-	print("[Multiplayer] credentials saved locally: " + credentials)
+	if !silent_print:
+		print("[Multiplayer] credentials saved locally: " + credentials)
 	
 func load_credentials_or_join():
 	if not has_credentials():
@@ -108,7 +114,8 @@ func load_credentials():
 	var obj = JSON.parse(credentials_file.get_as_text())
 	var credentials = obj.result;
 
-	print("[Multiplayer] found stored credentials: " + JSON.print(credentials))
+	if !silent_print:
+		print("[Multiplayer] found stored credentials: " + JSON.print(credentials))
 
 	user_id = credentials.id
 	token = credentials.token
@@ -117,7 +124,8 @@ func fetch_with_credentials(url):
 	fetch(url + "/" + String(user_id) + "/" + token)
 
 func fetch(url):
-	print("[Multiplayer] fetch: " + url)
+	if !silent_print:
+		print("[Multiplayer] fetch: " + url)
 	
 	var error = http_request.request(url)
 	if error != OK:
@@ -126,15 +134,18 @@ func fetch(url):
 func _on_request_completed(result, response_code, headers, body):
 	var body_string = body.get_string_from_utf8()
 	
-	print("[Multiplayer] raw response (code=" + String(response_code) + "): " + body_string)
+	if !silent_print:
+		print("[Multiplayer] raw response (code=" + String(response_code) + "): " + body_string)
 	
 	if response_code == 404:
-		print("[Multiplayer] problem with fetch")
+		if !silent_print:
+			print("[Multiplayer] problem with fetch")
 		print(result)
 		return
 	
 	var json = JSON.parse(body_string)
-	print("[Multiplayer] response received: " + JSON.print(json.result))
+	if !silent_print:
+		print("[Multiplayer] response received: " + JSON.print(json.result))
 
 	var action = json.result.action
 	

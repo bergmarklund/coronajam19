@@ -41,13 +41,15 @@ var scale_back_speed = 0.1
 func _ready():
 	initial_sun_rotation = $DirectionalLight.rotation
 
-func reload(rng_seed):
-	rng = RandomNumberGenerator.new()
-	rng.set_seed(rng_seed)
+func reload():
+	set_rng()
 	if !warping:
-		reload_scale_back = true
 		scale_back_speed = 0.1
 		draw()
+	
+func set_rng():
+	rng = RandomNumberGenerator.new()
+	rng.set_seed(Singleton.rng_seed)
 	
 func _process(_delta):
 	if warping:
@@ -109,7 +111,8 @@ func draw_planets():
 		if(rng.randf() < planet_chance):
 			var i = rng.randi_range(0, len(planets) -1)
 			var planet = planets[i].instance()
-			planet.scale.x += 100
+			if reload_scale_back:
+				planet.scale.x += 100
 			pos.add_child(planet)
 			planet_chance -= 0.2
 	
@@ -134,9 +137,12 @@ func draw_stars():
 				if(rng.randf() < 0.1):
 					var n = rng.randi_range(0, len(stars) -1)		
 					var star = stars[n].instance()
-					var offset = Vector3(100, -i * 2, j * 2 )
+					var offset = Vector3(0, -i * 2, j * 2 )
+					if reload_scale_back:
+						offset.x = 100
 					star.translate(offset)
-					star.scale.x += 100
+					if reload_scale_back:
+						star.scale.x += 100
 					pos.add_child(star)
 		idx += 1
 	
@@ -146,7 +152,9 @@ func clear_stars():
 		delete_children(pos)
 
 func do_warp(distance):
+	set_rng()
 	warping = true
+	reload_scale_back = true
 	var timer = Timer.new()
 	timer.one_shot = true
 	timer.wait_time = distance
@@ -154,9 +162,11 @@ func do_warp(distance):
 	add_child(timer)
 	timer.start()
 
+
 func _warp_done():
-	print("warp_done")
 	warping = false
+	reload_scale_back = true
+	reload()
 	emit_signal("warp_done")
 	
 func warp_sun():
