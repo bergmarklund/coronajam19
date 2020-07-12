@@ -37,8 +37,6 @@ func _on_sync():
 		goto_spaceship(0)
 		first_data_synced = true
 		
-	update_messages(messages)
-	update_items(items)
 	
 func update_items(items):
 	var item_dict = {}
