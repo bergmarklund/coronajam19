@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://assets/Collectibles/collectible_hot_carrot.glb" type="PackedScene" id=1]
+
+[node name="Spatial" type="Spatial"]
+
+[node name="collectible_hot_carrot" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0149527, 0.45407, -0.00336844 )

@@ -5,4 +5,4 @@
 [node name="Spatial" type="Spatial"]
 
 [node name="collectible_alien" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.40956, 0.605204, -0.003342 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0198027, 0.605204, -0.003342 )
