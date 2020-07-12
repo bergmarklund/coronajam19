@@ -4,7 +4,6 @@ signal display_msg_console
 
 var camera_start = 0
 var can_go_to_panels = true
-var rng_seed = 0
 
 var lock_ship = false
 
@@ -21,20 +20,17 @@ func _ready():
 	$InterpolatedCamera.rotation = start.rotation
 	$InterpolatedCamera.enabled = true
 	$background.connect("warp_done", self, "_on_warp_done")
-	reload_background(rng_seed)
+	reload_background()
 
-func reload_background(_rng_seed):
-	rng_seed = _rng_seed
-	if !lock_ship:
-		$background.reload(rng_seed)
+func reload_background():
+	$background.reload()
 	
 func do_warp(distance):
-	lock_ship = true 
+	lock_ship = true
 	$background.do_warp(distance)
 
 func _on_warp_done():
 	lock_ship = false
-	reload_background(rng_seed)
 
 func _input(event):
 	if event is InputEventMouseButton:	
@@ -49,6 +45,9 @@ func _on_nav_console_area_clicked():
 func _on_msg_console_area_clicked():
 	if !lock_ship:
 		$InterpolatedCamera.set_target($camera_console_msg)
+		
+func _on_item_collect_area_clicked():
+	Multiplayer.collect()
 
 
 func _on_nav_console_area_entered(area):
