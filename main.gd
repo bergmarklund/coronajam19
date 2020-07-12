@@ -87,6 +87,7 @@ func goto_nav_console():
 	clear_current_scene()
 	var nav_console = navconsole_scene.instance()
 	nav_console.connect("exit_nav_console", self, "_on_exit_nav_console")
+	nav_console.connect("warp_to_pos", self, "_on_warp_to_position")
 	$current_scene.add_child(nav_console)
 	
 func goto_msg_console():
@@ -113,6 +114,7 @@ func _on_exit_msg_console():
 	goto_spaceship(2)
 
 func _on_warp_to_position(offset_row, offset_col):
+	print("Pos in main: " + str(offset_row) + " " + str(offset_col))
 	if offset_row == 0 && offset_col == 0:
 		return
 	var global_row = row + offset_row
