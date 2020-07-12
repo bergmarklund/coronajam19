@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Arr;
 
 use Validator;
 use App\Ship;
 use App\User;
 use App\Message;
+use App\Item;
 
 /**
  * Handles all the steps to allow someone to join the game
@@ -101,6 +103,102 @@ class InteractionController extends Controller
         ];
     }
 
+    protected function findNeighborShips($ship)
+    {
+        $filter = [
+            ['id', '!=', $ship->id], // exclude own ship
+            ['row', '=', $ship->row],
+            ['col', '=', $ship->col],
+        ];
+
+        $neighbors = Ship::where($filter)->take(30)->get();
+        return $neighbors;
+    }
+
+    protected function findItemsFloatingInSpace($ship)
+    {
+        $location = [
+            ['row', '=', $ship->row],
+            ['col', '=', $ship->col],
+        ];
+
+        $items = Item::where($location)->whereNull('ship_id')->take(30)->get();
+        return $items;
+    }
+
+    /**
+     * Dispose an item to outer space or near by ships if they are in the
+     * same quadrant.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function dispose(Item $item, User $user, $token)
+    {
+        $userShip = $user->ship;
+        $neighbors = $this->findNeighborShips($userShip);
+
+        // Position item in space before disposal
+        $item->row = $userShip->row;
+        $item->col = $userShip->col;
+
+        if(count($neighbors) == 0) {
+            // No neighbors (all alone indeed). As a consequence,
+            // we dispose the item to outer space.
+            $item->ship_id = null;
+        } else {
+            $anotherShip = $neighbors->random();
+            $item->ship()->associate($anotherShip);
+        }
+
+        $item->save();
+
+        return [
+            'action' => 'dispose',
+            'item' => $item,
+            'was_collected' => $item->ship_id != null
+        ];
+    }
+
+    /**
+     * Collect items that are floating around in space in the same
+     * quadrant that the user's ship.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function collect(User $user, $token)
+    {
+        $ship = $user->ship;
+        $chanceCollectNewItem = config('game.item_chance_collect_new', 10);
+        $existingItemDescriptions = config('game.item_descriptions');
+        $collectedItem = null;
+        $floatingItems = $this->findItemsFloatingInSpace($ship);
+
+        // There is a chance of collecting something brand new when you try
+        // to collect in the quadrant
+        if(rand(0, 99) <= $chanceCollectNewItem) {
+            $randomDescription = Arr::random($existingItemDescriptions, 1)[0];
+            $item = Item::create([
+                'ship_id' => null,
+                'seed' => rand(0, 1000),
+                'description' => $randomDescription,
+                'row' => $ship->row,
+                'col' => $ship->col
+            ]);
+            $floatingItems[] = $item;
+        }
+
+        if(count($floatingItems) > 0) {
+            $collectedItem = $floatingItems->random();
+            $collectedItem->ship()->associate($ship);
+            $collectedItem->save();
+        }
+
+        return [
+            'action' => 'collect',
+            'item' => $collectedItem
+        ];
+    }
+
     /**
      * Send a message
      *
@@ -121,15 +219,14 @@ class InteractionController extends Controller
             ['col', '<=', $ship->col + $reach],
         ];
 
-        $messages = Message::where($filter)
-                        ->orderBy('created_at', 'asc')
-                        ->take(30)
-                        ->get();
+        $messages = Message::where($filter)->orderBy('created_at', 'asc')->take($maxReceive)->get();
+        $items = Item::where('ship_id', $ship->id)->take(30)->get();
 
         return [
             'action' => 'sync',
             'user' => $user,
-            'messages' => $messages
+            'messages' => $messages,
+            'items' => $items
         ];
     }
 }

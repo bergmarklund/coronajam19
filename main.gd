@@ -22,9 +22,10 @@ func _on_sync():
 	var user = data.user
 	var ship = user.ship
 	var messages = data.messages
-	
-	if check_if_moved(ship.row, ship.col):
-		update_ship_position(ship.row, ship.col)
+	var new_row = int(ship.row)
+	var new_col = int(ship.col)
+	if check_if_moved(new_row, new_col):
+		update_ship_position(new_row, new_col)
 	
 	update_messages(messages)
 	
@@ -60,7 +61,7 @@ func update_rng_seed():
 	print("new rng_seed: " + str(rng_seed))
 	
 func check_if_moved(new_row, new_col):
-	return new_row != col || new_col != row 
+	return new_row != row || new_col != col
 
 func clear_current_scene():
 	if $current_scene.get_child_count() > 0:
