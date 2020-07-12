@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/down_1.wav-8460fcbd9d7c6f6a50777cc1fd9a7323.sample"
+
+[deps]
+
+source_file="res://assets/sounds/communication/navigation/down_1.wav"
+dest_files=[ "res://.import/down_1.wav-8460fcbd9d7c6f6a50777cc1fd9a7323.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

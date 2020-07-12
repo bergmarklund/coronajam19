@@ -72,21 +72,25 @@ func led_switch(navigation_led_pos, status):
 
 ### Hover and click functions ###
 func _on_arrow_up_clicked():
+	$arrow_up/AudioStreamPlayer.play()
 	led_switch(navigation_led_pos, false)
 	navigation_led_pos.y -= 1
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_right_area_clicked():
+	$arrow_right/AudioStreamPlayer.play()
 	led_switch(navigation_led_pos, false)
 	navigation_led_pos.x += 1
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_left_area_clicked():
+	$arrow_left/AudioStreamPlayer.play()
 	led_switch(navigation_led_pos, false)
 	navigation_led_pos.x -= 1
 	led_switch(navigation_led_pos, true)
 
 func _on_arrow_down_area_clicked():
+	$arrow_down/AudioStreamPlayer.play()
 	led_switch(navigation_led_pos, false)
 	navigation_led_pos.y += 1
 	led_switch(navigation_led_pos, true)
