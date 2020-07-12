@@ -79,6 +79,5 @@ func _on_radio_area_clicked():
 	emit_signal("toggle_radio")
 
 func display_items(items):
-	print("display items")
-	#call display items on child node
+	$items_library.display_items(items)
 
