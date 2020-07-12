@@ -47,6 +47,9 @@ func warp(row, col):
 	emit_signal("warp_done")
 	
 func message(content):
+	if !content || content.length() == 0:
+		printerr("[Multiplayer] empty messages are not allowed!")
+		return
 	fetch_with_credentials(API_BASE_URL + "/message/" + content.percent_encode())
 	
 func dispose(item_id):
