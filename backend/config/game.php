@@ -14,7 +14,7 @@ return [
     'message_quadrants_reach' => 10,
     'message_max_receive' => 50,
     'ship_start_quadrant_range' => 30,
-    'item_chance_collect_new' => 10, /** 0 to 100 */
+    'item_chance_collect_new' => 30, /** 0 to 100 */
     'item_descriptions' => [
         'collectible_alien',
         'collectible_hot_carrot',
