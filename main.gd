@@ -124,15 +124,20 @@ func _on_warp_to_position(offset_row, offset_col):
 		return
 	var global_row = row + offset_row
 	var global_col = col + offset_col
-	do_warp_sequence(global_row, global_col)
+	var distance = get_warp_distance(offset_row, offset_col)
+	do_warp_sequence(global_row, global_col, distance)
 	Multiplayer.warp(global_row, global_col)
 	
+# used as time! 
+func get_warp_distance(offset_row, offset_col):
+	return offset_row + offset_col
+
 func _on_warp_done():
 	Multiplayer.sync()
 	
-func do_warp_sequence(global_row, global_col):
+func do_warp_sequence(global_row, global_col, distance):
 	goto_spaceship(1, true)
-	warp_spaceship(5)
+	warp_spaceship(distance)
 	update_ship_position(global_row, global_col)
 
 func warp_spaceship(distance):
