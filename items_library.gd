@@ -9,6 +9,9 @@ var collectibles = {
 	"collectible_plant_tree": preload("res://assets/sounds/communication/receive/D_low.wav"),
 }
 
+func display_items(items):
+	print("displaying items")
+	
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
