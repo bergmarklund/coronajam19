@@ -39,3 +39,6 @@ transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 40, -15, 8 )
 transform = Transform( -1.62921e-07, -0.573577, 0.819152, 0, 0.819152, 0.573577, -1, 9.34475e-08, -1.33457e-07, 0, 0, 0 )
 shadow_enabled = true
 directional_shadow_mode = 1
+
+[node name="neighbors" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 60, -2, 0 )

@@ -82,3 +82,5 @@ func _on_radio_area_clicked():
 func display_items(items):
 	$items_library.display_items(items)
 
+func display_neighbors(ids):
+	$background.display_neighbors(ids)
