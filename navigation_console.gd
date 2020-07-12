@@ -88,8 +88,8 @@ func lower_button(id):
 	button.set_translation(pos)
 	button_pressed = false
 
-func display_message(offset_row, offset_col):
-	var led_node = led_nodes[navigation_led_pos.x - offset_col][navigation_led_pos.y - offset_row]
+func display_message(offset_row, offset_col): 
+	var led_node = led_nodes[center_led_pos.x - offset_col][center_led_pos.y - offset_row]
 	led_node.change_led_color(red)
 	led_node.activate_nearby_ship_led_blinking()
 	
