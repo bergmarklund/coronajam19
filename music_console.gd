@@ -16,7 +16,7 @@ var number_of_leds = 5
 var led_music_state = 0
 var time = 0
 var timer = null
-var delay_between_tones_in_second = 2
+var delay_between_tones_in_second = 2.5
 
 # Colors
 var red = Color(1,0,0)
@@ -130,7 +130,7 @@ func _on_music_button_clicked(id):
 			clear_leds()
 		var node_to_active = 1
 		play_sequence.append(id)
-		led_nodes[(led_music_state % 5)][id].change_led_color(led_nodes[(led_music_state % 5)][id], yellow)
+		led_nodes[(led_music_state % 5)][id].change_led_color(yellow)
 		led_music_state += 1
 	
 func render_led(x_pos, z_pos, origin_pos):
@@ -146,4 +146,4 @@ func clear_leds():
 	play_sequence = []
 	for i in range(5):
 		for j in range(5):
-			led_nodes[i][j].change_led_color(led_nodes[i][j], green)
+			led_nodes[i][j].change_led_color(green)
