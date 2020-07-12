@@ -70,3 +70,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.04444, -1.02138e-06, -4.1685
 [connection signal="area_clicked" from="control_panel_msg" to="." method="_on_msg_console_area_clicked"]
 [connection signal="area_entered" from="control_panel_msg" to="." method="_on_msg_console_area_entered"]
 [connection signal="area_exited" from="control_panel_msg" to="." method="_on_msg_console_area_exited"]
+[connection signal="area_clicked" from="radio" to="." method="_on_radio_area_clicked"]

@@ -79,6 +79,7 @@ func goto_spaceship(camera_start, lock_ship = false):
 	var spaceship = spaceship_scene.instance()
 	spaceship.connect("display_nav_console", self, "_on_display_nav_console")
 	spaceship.connect("display_msg_console", self, "_on_display_msg_console")
+	spaceship.connect("toggle_radio", self, "_on_toggle_radio")
 	spaceship.camera_start = camera_start
 	spaceship.lock_ship = lock_ship
 	$current_scene.add_child(spaceship)
@@ -153,3 +154,6 @@ func warp_spaceship(distance):
 		var child = $current_scene.get_children()[0]
 		if child.has_method("do_warp"):
 			child.do_warp(distance)
+
+func _on_toggle_radio():
+	$background_music.toggle_radio()

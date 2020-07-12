@@ -1,6 +1,7 @@
 extends Spatial
 signal display_nav_console
 signal display_msg_console
+signal toggle_radio
 
 var camera_start = 0
 var can_go_to_panels = true
@@ -71,3 +72,7 @@ func _on_msg_console_area_exited(area):
 
 func _on_light_switch_light_switch_clicked():
 	$space_light.visible = !$space_light.visible
+
+
+func _on_radio_area_clicked():
+	emit_signal("toggle_radio")

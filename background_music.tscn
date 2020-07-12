@@ -1,12 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/sounds/ambiance/shiptype2_enginehum.wav" type="AudioStream" id=1]
 [ext_resource path="res://background_music.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/radio/radio_piano.wav" type="AudioStream" id=3]
 
 [node name="background_music" type="Node"]
 script = ExtResource( 2 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="engine_sounds" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
 autoplay = true
 
@@ -14,3 +15,6 @@ autoplay = true
 autoplay = true
 
 [node name="message_stream" type="AudioStreamPlayer" parent="."]
+
+[node name="radio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

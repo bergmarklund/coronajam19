@@ -4,6 +4,7 @@ extends Node
 
 var timer = null
 var rng = null
+var radio_playback_position = 0
 
 var sounds = [
 	preload("res://assets/sounds/ambiance/misc/synth_2.wav"),
@@ -96,3 +97,10 @@ func _play_message():
 		var tone = message.pop_front()
 		$message_stream.set_stream(tone)
 		$message_stream.play()
+		
+func toggle_radio():
+	if $radio.playing:
+		radio_playback_position = $radio.get_playback_position()
+		$radio.stop()
+	else:
+		$radio.play(radio_playback_position)
