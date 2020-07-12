@@ -8,6 +8,7 @@ extents = Vector3( 0.3, 0.4, 0.3 )
 
 [node name="Spatial" type="Area"]
 script = ExtResource( 2 )
+area_path = NodePath(".")
 
 [node name="collectible_plant_small" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5129e-05, 0.37685, 0.00900757 )
