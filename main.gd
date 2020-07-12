@@ -42,9 +42,9 @@ func update_messages(messages):
 		display_message(msg)
 		
 func display_message(message):
-	print("message seend: " + message)
 	var offset_row = row - message.row
 	var offset_col = col - message.col
+	print(str(message.row) + " " + str(message.col))
 	if $current_scene.get_child_count() > 0:
 		var child = $current_scene.get_children()[0]
 		if child.has_method("display_message"):
@@ -125,15 +125,20 @@ func _on_warp_to_position(offset_row, offset_col):
 		return
 	var global_row = row + offset_row
 	var global_col = col + offset_col
-	do_warp_sequence(global_row, global_col)
+	var distance = get_warp_distance(offset_row, offset_col)
+	do_warp_sequence(global_row, global_col, distance)
 	Multiplayer.warp(global_row, global_col)
 	
+# used as time! 
+func get_warp_distance(offset_row, offset_col):
+	return offset_row + offset_col
+
 func _on_warp_done():
 	Multiplayer.sync()
 	
-func do_warp_sequence(global_row, global_col):
+func do_warp_sequence(global_row, global_col, distance):
 	goto_spaceship(1, true)
-	warp_spaceship(5)
+	warp_spaceship(distance)
 	update_ship_position(global_row, global_col)
 
 func warp_spaceship(distance):
