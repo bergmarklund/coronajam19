@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/up_lowpitch.wav-2fe04318b0eeefd1f12e55aa2b3ff5b0.sample"
+
+[deps]
+
+source_file="res://assets/sounds/communication/navigation/up_lowpitch.wav"
+dest_files=[ "res://.import/up_lowpitch.wav-2fe04318b0eeefd1f12e55aa2b3ff5b0.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
