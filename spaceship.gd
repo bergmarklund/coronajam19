@@ -20,6 +20,7 @@ func _ready():
 	$InterpolatedCamera.translation = start.translation
 	$InterpolatedCamera.rotation = start.rotation
 	$InterpolatedCamera.enabled = true
+	$background.connect("warp_done", self, "_on_warp_done")
 	reload_background(rng_seed)
 
 func reload_background(_rng_seed):
@@ -30,6 +31,10 @@ func reload_background(_rng_seed):
 func do_warp(distance):
 	lock_ship = true 
 	$background.do_warp(distance)
+
+func _on_warp_done():
+	lock_ship = false
+	reload_background(rng_seed)
 
 func _input(event):
 	if event is InputEventMouseButton:	

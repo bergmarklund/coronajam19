@@ -14,6 +14,7 @@ func _ready():
 	goto_spaceship(0)
 	Multiplayer.connect("sync_done", self, "_on_sync")
 	
+	
 func _on_sync():
 	print("SYNCING")
 	var data = Multiplayer.data
@@ -57,7 +58,7 @@ func update_ship_position(new_row, new_col):
 	reload_ship_background()
 
 func update_rng_seed():
-	rng_seed = row ^ col
+	rng_seed = row * col
 	print("new rng_seed: " + str(rng_seed))
 	
 func check_if_moved(new_row, new_col):

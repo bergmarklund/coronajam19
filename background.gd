@@ -33,23 +33,43 @@ var initial_sun_rotation = null
 var planet_rotation_max = [0.002, 0.009, 0.02]
 var planet_rotations = [0.0, 0.0, 0.0]
 
-var warping = false 
+var warping = false
+
+var reload_scale_back = false
+var scale_back_speed = 0.1
 
 func _ready():
 	initial_sun_rotation = $DirectionalLight.rotation
 
 func reload(rng_seed):
+	rng = RandomNumberGenerator.new()
+	rng.set_seed(rng_seed)
 	if !warping:
-		rng = RandomNumberGenerator.new()
-		rng.set_seed(rng_seed)
+		reload_scale_back = true
+		scale_back_speed = 0.1
 		draw()
 	
 func _process(_delta):
 	if warping:
-		print("do test")
+		render_warp()
+	elif reload_scale_back:
+		scale_back_to_orignal()
 	else:
 		rotate_planets()
 
+func scale_back_to_orignal():
+	scale_back_nodes(get_all_stars())
+	scale_back_nodes(get_all_planets())
+	scale_back_speed += 0.05
+	if scale_back_speed > 1:
+		reload_scale_back = false
+
+func scale_back_nodes(nodes):
+	for node in nodes: 
+		node.scale = node.scale.linear_interpolate(Vector3(1,1,1), scale_back_speed)
+		node.translation = node.translation.linear_interpolate(Vector3(get_parent().translation.x, node.translation.y, node.translation.z), scale_back_speed)
+		
+	
 func rotate_planets():
 	var positions = $planets.get_children()
 	var idx = 0
@@ -89,6 +109,7 @@ func draw_planets():
 		if(rng.randf() < planet_chance):
 			var i = rng.randi_range(0, len(planets) -1)
 			var planet = planets[i].instance()
+			planet.scale.x += 100
 			pos.add_child(planet)
 			planet_chance -= 0.2
 	
@@ -106,15 +127,18 @@ func delete_children(node):
 func draw_stars():
 	clear_stars()
 	var positions = $stars.get_children()
+	var idx = 0
 	for pos in positions:
 		for i in range(0, 50):
 			for j in range(0, 50):
 				if(rng.randf() < 0.1):
 					var n = rng.randi_range(0, len(stars) -1)		
 					var star = stars[n].instance()
-					var offset = Vector3(0, -i * 2, j * 2 )
+					var offset = Vector3(100, -i * 2, j * 2 )
 					star.translate(offset)
+					star.scale.x += 100
 					pos.add_child(star)
+		idx += 1
 	
 func clear_stars():
 	var positions = $stars.get_children()
@@ -122,12 +146,38 @@ func clear_stars():
 		delete_children(pos)
 
 func do_warp(distance):
-	var stars = get_all_stars()
-	var planets = get_all_planets()
-	warp_stars(stars)
+	warping = true
+	var timer = Timer.new()
+	timer.one_shot = true
+	timer.wait_time = distance
+	timer.connect("timeout", self, "_warp_done")
+	add_child(timer)
+	timer.start()
+
+func _warp_done():
+	print("warp_done")
+	warping = false
+	emit_signal("warp_done")
 	
-func warp_stars(stars):
-	pass
+func warp_sun():
+	$DirectionalLight.rotate(Vector3(0, 1, 0), 0.5)
+	
+func render_warp():
+	warp_stars()
+	warp_planets()
+	warp_sun()
+	
+func warp_planets():
+	var planets = get_all_planets()
+	for planet in planets:
+		planet.scale.x += 0.2
+		planet.translation.x -= 0.25
+	
+func warp_stars():
+	var stars = get_all_stars()
+	for star in stars:
+		star.scale.x += 1
+		star.translation.x += 1
 	
 func get_all_stars():
 	var stars = []
