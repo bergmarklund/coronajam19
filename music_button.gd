@@ -6,6 +6,7 @@ var hover_yellow = Color(1,1,0)
 var red = Color(1,0,0)
 
 var timer = null
+var button_pressed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,15 +26,17 @@ func _on_music_button_mouse_exited():
 	change_color(red)
 
 func _on_music_button_area_clicked():
-	lower_button()
+	if !button_pressed:
+		lower_button()
 	emit_signal("music_button_clicked", id)
 
 func lower_button():
+	button_pressed = true
 	var pos = self.transform.origin
-	print(pos)
 	pos.y -= 0.2
 	self.transform.origin = pos
 	timer.start()
 	yield(timer, "timeout")
 	pos.y += 0.2
 	self.transform.origin = pos
+	button_pressed = false

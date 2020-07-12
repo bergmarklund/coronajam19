@@ -9,6 +9,7 @@ var number_of_leds = 29
 var center_led_pos = Vector2((number_of_leds-1) / 2, (number_of_leds-1) / 2)
 var navigation_led_pos = center_led_pos
 var timer = null
+var button_pressed = false
 
 # Colors
 var green = Color(0.11,0.38,0.11)
@@ -74,6 +75,9 @@ func led_switch(navigation_led_pos, status):
 			led_node.disable_navigation_led()
 
 func lower_button(id):
+	if button_pressed:
+		return
+	button_pressed = true
 	var button = get_child(id)
 	var pos = button.transform.origin
 	pos.y -= 0.2
@@ -82,6 +86,7 @@ func lower_button(id):
 	yield(timer, "timeout")
 	pos.y += 0.2
 	button.set_translation(pos)
+	button_pressed = false
 
 ### Hover and click functions ###
 func _on_arrow_up_clicked():
