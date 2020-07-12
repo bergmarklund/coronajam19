@@ -22,6 +22,8 @@ Route::get('/join/{name}/{country}', 'JoinController@index')->name('join.create'
 Route::get('/move/{direction}/{user}/{token}', 'InteractionController@move')->name('interaction.move');
 Route::get('/warp/{row}/{col}/{user}/{token}', 'InteractionController@warp')->name('interaction.warp');
 Route::get('/message/{content}/{user}/{token}', 'InteractionController@message')->name('interaction.message');
+Route::get('/dispose/{item}/{user}/{token}', 'InteractionController@dispose')->name('interaction.dispose');
+Route::get('/collect/{user}/{token}', 'InteractionController@collect')->name('interaction.collect');
 Route::get('/sync/{user}/{token}', 'InteractionController@sync')->name('interaction.sync');
 
 // Test
