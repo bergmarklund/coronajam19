@@ -15,6 +15,7 @@ func _ready():
 	goto_splashscreen()
 	Multiplayer.connect("sync_done", self, "_on_sync")
 	Multiplayer.connect("warp_done", self, "_on_warp_done")
+	Multiplayer.warp(10, 15)
 	
 	
 func _on_sync():
@@ -42,8 +43,8 @@ func update_messages(messages):
 		display_message(msg)
 		
 func display_message(message):
-	var offset_row = row - message.row
-	var offset_col = col - message.col
+	var offset_row = message.row - row
+	var offset_col = message.col - col
 	if $current_scene.get_child_count() > 0 && abs(offset_col) <= 14 && abs(offset_row) <= 14:
 		var child = $current_scene.get_children()[0]
 		if child.has_method("display_message"):

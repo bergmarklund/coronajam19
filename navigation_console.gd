@@ -90,13 +90,11 @@ func lower_button(id):
 	button_pressed = false
 
 func display_message(offset_row, offset_col): 
-	var led_node = led_nodes[center_led_pos.x - offset_col][center_led_pos.y - offset_row]
+	var led_node = led_nodes[center_led_pos.y + offset_row][center_led_pos.x + offset_row]
 	led_node.activate_nearby_ship_led_blinking()
-
 
 ### Hover and click functions ###
 func _on_arrow_up_clicked():
-	print(navigation_led_pos)
 	if navigation_led_pos.y <= 0:
 		return
 	lower_button(2)
@@ -164,4 +162,5 @@ func _on_launch_button_mouse_exited():
 
 func _on_launch_button_area_clicked():
 	lower_button(4)
-	emit_signal("warp_to_pos", center_led_pos.y - navigation_led_pos.y, navigation_led_pos.x - center_led_pos.x)
+	var absolut_warp_pos = Vector2(navigation_led_pos.y - center_led_pos.y, navigation_led_pos.x - center_led_pos.x)
+	emit_signal("warp_to_pos", absolut_warp_pos.x, absolut_warp_pos.y)
