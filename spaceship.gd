@@ -45,9 +45,10 @@ func _on_nav_console_area_clicked():
 func _on_msg_console_area_clicked():
 	if !lock_ship:
 		$InterpolatedCamera.set_target($control_panel_msg/camera_position)
-		
-func _on_item_collect_area_clicked():
-	Multiplayer.collect()
+
+func _on_trash_can_area_clicked():
+	if !lock_ship:
+		Multiplayer.collect()
 
 
 func _on_nav_console_area_entered(area):
@@ -76,3 +77,8 @@ func _on_light_switch_light_switch_clicked():
 
 func _on_radio_area_clicked():
 	emit_signal("toggle_radio")
+
+func display_items(items):
+	print("display items")
+	#call display items on child node
+
