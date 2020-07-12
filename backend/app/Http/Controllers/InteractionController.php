@@ -221,12 +221,14 @@ class InteractionController extends Controller
 
         $messages = Message::where($filter)->orderBy('created_at', 'asc')->take($maxReceive)->get();
         $items = Item::where('ship_id', $ship->id)->take(30)->get();
+        $neighbors = $this->findNeighborShips($ship);
 
         return [
             'action' => 'sync',
             'user' => $user,
             'messages' => $messages,
-            'items' => $items
+            'items' => $items,
+            'neighbors' => $neighbors
         ];
     }
 }
