@@ -51,7 +51,6 @@ func disable_nearby_ship_led_blinking():
 
 func activate_nearby_ship_led_blinking(red=false):
 	nearby_ship_led_blinking = true
-	blink_red = red
 
 func _process(_delta):
 	nav_time += _delta
@@ -60,10 +59,7 @@ func _process(_delta):
 		blinking_navigation_led(green)
 		nav_time = 0
 	if nearby_ship_led_blinking and discover_time > blinking_speed_in_seconds_disc:
-		if red:
-			blinking_navigation_led(red)
-		else:
-			blinking_navigation_led(green)
+		blinking_navigation_led(green)
 		discover_time = 0
 	
 		
