@@ -28,6 +28,12 @@ var stars = [
 	preload("background_scenes/stars/star_10.tscn")
 ]
 
+var ships = [
+	preload("res://background_scenes/ships/ship_1.tscn"),
+	preload("res://background_scenes/ships/ship_2.tscn"),
+	preload("res://background_scenes/ships/ship_3.tscn")
+]
+
 var rng = null
 var initial_sun_rotation = null
 var planet_rotation_max = [0.002, 0.009, 0.02]
@@ -113,6 +119,7 @@ func draw_planets():
 			var planet = planets[i].instance()
 			if reload_scale_back:
 				planet.scale.x += 100
+				planet.translation.y -= 2
 			pos.add_child(planet)
 			planet_chance -= 0.2
 	
@@ -164,6 +171,7 @@ func do_warp(distance):
 func _warp_done():
 	warping = false
 	reload_scale_back = true
+	clear_ships()
 	reload()
 	emit_signal("warp_done")
 	
@@ -174,6 +182,14 @@ func render_warp():
 	warp_stars()
 	warp_planets()
 	warp_sun()
+	warp_ships()
+
+func warp_ships():
+	for ship in $neighbors.get_children():
+		var scale_vector = Vector3(1.2, 1, 1)
+		ship.transform = ship.transform.scaled(scale_vector)
+		var move_vector = Vector3(0, 1, 0.5)
+		ship.transform = ship.transform.translated(move_vector)
 	
 func warp_planets():
 	var _planets = get_all_planets()
@@ -203,3 +219,25 @@ func get_all_planets():
 	for pos in positions:
 		_planets += pos.get_children()
 	return _planets
+
+func display_neighbors(ids):
+	if warping || reload_scale_back:
+		return
+	clear_ships()
+	var offset_y = 0
+	var offset_z = 0
+	var ship_count = len(ships)
+	for id in ids:
+		var ship_id = int(id) % ship_count
+		var ship = ships[ship_id].instance()
+		ship.translation.y += offset_y
+		ship.translation.z += offset_z
+		$neighbors.add_child(ship)
+		offset_z += 4		
+		if offset_z > 12:
+			offset_z = 0
+			offset_y -= 4
+
+func clear_ships():
+	for child in $neighbors.get_children():
+		child.queue_free()

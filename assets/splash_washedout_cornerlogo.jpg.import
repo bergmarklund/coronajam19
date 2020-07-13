@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Logo.jpg-93fc838ae0613237cf2c261d9fb764e4.stex"
+path="res://.import/splash_washedout_cornerlogo.jpg-1aff408b8b5aa13a1f53a3115e4ef11c.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Logo.jpg"
-dest_files=[ "res://.import/Logo.jpg-93fc838ae0613237cf2c261d9fb764e4.stex" ]
+source_file="res://assets/splash_washedout_cornerlogo.jpg"
+dest_files=[ "res://.import/splash_washedout_cornerlogo.jpg-1aff408b8b5aa13a1f53a3115e4ef11c.stex" ]
 
 [params]
 
