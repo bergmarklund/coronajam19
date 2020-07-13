@@ -40,7 +40,7 @@ class GameMail extends Command
      */
     public function handle()
     {
-        $messageMaxTTLMin = config('game.message_max_ttl_min', 1);
+        $messageMaxTTLMin = config('game.message_max_ttl_min', 60 * 24 * 7);
         $nowMinusTTL = Carbon::now()->subMinutes($messageMaxTTLMin);
 
         Message::where('created_at', '<', $nowMinusTTL)->delete();
