@@ -3,8 +3,12 @@ extends Node
 
 
 var timer = null
+var sound_timer = null
 var rng = null
 var radio_playback_position = 0
+var time_between_tones = 1.5
+var time_between_messages = 90
+var time = 0
 
 var sounds = [
 	preload("res://assets/sounds/ambiance/misc/synth_2.wav"),
@@ -59,6 +63,9 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 	create_new_timer()
+	sound_timer = Timer.new()
+	self.add_child(sound_timer)
+	sound_timer.set_wait_time(time_between_tones)
 
 func create_new_timer():
 	timer = Timer.new()
@@ -88,16 +95,21 @@ func add_message(_message):
 	message_queue.append(msg)
 
 func _process(_delta):
-	if len(message) == 0 && len(message_queue) > 0:
+	time += _delta
+	if len(message) == 0 && len(message_queue) > 0 && time > time_between_messages:
 		message = message_queue.pop_front()
 		_play_message()
+		time = 0
 		
 func _play_message():
 	if len(message) > 0:
 		var tone = message.pop_front()
 		$message_stream.set_stream(tone)
 		$message_stream.play()
-		
+		sound_timer.start()
+		yield(sound_timer, "timeout")
+		$message_stream.stop()
+
 func toggle_radio():
 	if $radio.playing:
 		radio_playback_position = $radio.get_playback_position()
