@@ -7,6 +7,7 @@ var camera_start = 0
 var can_go_to_panels = true
 
 var lock_ship = false
+var warp_back = false
 
 func _ready():
 	var start = $camera_origin
@@ -20,9 +21,10 @@ func _ready():
 	$InterpolatedCamera.transform = start.global_transform
 	$InterpolatedCamera.enabled = true
 	$background.connect("warp_done", self, "_on_warp_done")
-	reload_background()
+	reload_background(warp_back)
 
-func reload_background():
+func reload_background(_warp_back = false):
+	$background.reload_scale_back = _warp_back
 	$background.reload()
 	
 func do_warp(distance):

@@ -36,7 +36,7 @@ func _on_sync():
 		var new_row = int(ship.row)
 		var new_col = int(ship.col)
 		update_ship_position(new_row, new_col)
-		goto_spaceship(0)
+		goto_spaceship(0, false, true)
 		first_data_synced = true
 
 	
@@ -101,7 +101,7 @@ func clear_current_scene():
 		for child in children:
 			child.queue_free()
 		
-func goto_spaceship(camera_start, lock_ship = false):
+func goto_spaceship(camera_start, lock_ship = false, warp_back = false):
 	clear_current_scene()
 	var spaceship = spaceship_scene.instance()
 	spaceship.connect("display_nav_console", self, "_on_display_nav_console")
@@ -109,6 +109,7 @@ func goto_spaceship(camera_start, lock_ship = false):
 	spaceship.connect("toggle_radio", self, "_on_toggle_radio")
 	spaceship.camera_start = camera_start
 	spaceship.lock_ship = lock_ship
+	spaceship.warp_back = warp_back
 	$current_scene.add_child(spaceship)
 	
 
