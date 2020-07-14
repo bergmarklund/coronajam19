@@ -66,16 +66,25 @@ func _process(_delta):
 		rotate_planets()
 
 func scale_back_to_orignal():
-	scale_back_nodes(get_all_stars())
-	scale_back_nodes(get_all_planets())
+	scale_back_stars(get_all_stars())
+	scale_back_planets(get_all_planets())
 	scale_back_speed += 0.05
 	if scale_back_speed > 1:
 		reload_scale_back = false
 
-func scale_back_nodes(nodes):
+func scale_back_stars(nodes):
 	for node in nodes: 
 		node.scale = node.scale.linear_interpolate(Vector3(1,1,1), scale_back_speed)
-		node.translation = node.translation.linear_interpolate(Vector3(get_parent().translation.x, node.translation.y, node.translation.z), scale_back_speed)
+		var tran_vec = node.get_parent().translation
+		tran_vec.y = node.translation.y
+		tran_vec.z = node.translation.z
+		node.translation = node.translation.linear_interpolate(tran_vec, scale_back_speed)
+		
+func scale_back_planets(nodes):
+	for node in nodes: 
+		node.scale = node.scale.linear_interpolate(Vector3(1,1,1), scale_back_speed)
+		var tran_vec = Vector3(0,0,0)
+		node.translation = node.translation.linear_interpolate(tran_vec, scale_back_speed)
 		
 	
 func rotate_planets():
