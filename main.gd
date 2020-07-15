@@ -88,6 +88,7 @@ func update_ship_position(new_row, new_col):
 	col = int(new_col)
 	update_rng_seed()
 
+
 func update_rng_seed():
 	Singleton.rng_seed = abs(row + col + 1) +  abs(row) * abs(col)
 	print("new rng_seed: " + str(Singleton.rng_seed))
@@ -111,7 +112,13 @@ func goto_spaceship(camera_start, lock_ship = false, warp_back = false):
 	spaceship.lock_ship = lock_ship
 	spaceship.warp_back = warp_back
 	$current_scene.add_child(spaceship)
+	update_location_display()
 	
+func update_location_display():
+	if $current_scene.get_child_count() > 0:
+		var child = $current_scene.get_children()[1]
+		if child.has_method("update_location_display"):
+			child.update_location_display(row, col)
 
 func goto_nav_console():
 	clear_current_scene()
@@ -166,10 +173,12 @@ func get_warp_distance(offset_row, offset_col):
 func _on_warp_done():
 	Multiplayer.sync()
 	
+	
 func do_warp_sequence(global_row, global_col, distance):
 	goto_spaceship(1, true)
 	warp_spaceship(distance)
 	update_ship_position(global_row, global_col)
+	update_location_display()
 
 func warp_spaceship(distance):
 	var timer = Timer.new()
@@ -182,6 +191,7 @@ func warp_spaceship(distance):
 		var child = $current_scene.get_children()[0]
 		if child.has_method("do_warp"):
 			child.do_warp(distance)
+	
 
 func _on_toggle_radio():
 	$background_music.toggle_radio()

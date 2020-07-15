@@ -34,6 +34,10 @@ func do_warp(distance):
 func _on_warp_done():
 	lock_ship = false
 
+func update_location_display(row, col):
+	$location_display.render_location(row, col)
+	
+	
 func _input(event):
 	if event is InputEventMouseButton:	
 		if(event.pressed && event.button_index == BUTTON_RIGHT && !lock_ship):
